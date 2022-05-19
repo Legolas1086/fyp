@@ -1,12 +1,22 @@
 import React from "react";
 import { ReactDOM } from "react";
+import avatar from "./images/avatar.svg";
 
 
- function Login(){
+class Login extends React.Component{
+    handleSubmit = (event)=>{
+        console.log(event.target[0].value);
+        console.log(event.target[1].value);
+    }
+    render(){
      return(
-         <div>
-             <div className="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                        <input className="input100" autocomplete="off" type="text" name="email"></input>
+             <form className="login100-form validate-form" onSubmit={this.handleSubmit}>      
+                    <div className="avatar">
+                        <img width="60" src={avatar}/>
+                    </div>
+
+                    <div className="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                        <input className="input100" autoComplete="off" type="text" name="email"></input>
                         <span className="focus-input100"></span>
                         <span className="label-input100">Email</span>
                     </div>
@@ -41,12 +51,13 @@ import { ReactDOM } from "react";
                     </div>
     
                     <div className="container-login100-form-btn">
-                        <button onclick="window.location.href='/register' " className="login100-form-btn">
+                        <button type="submit" className="login100-form-btn">
                             Register
                         </button>
-                    </div>
-         </div>
-     )
+                    </div>       
+                </form>
+     );
+    }
 }
 
 export default Login;

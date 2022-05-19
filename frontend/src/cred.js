@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react";
-import avatar from "./images/avatar.svg";
+
 import login from "./images/login.svg";
 import drawing from "./images/drawing.svg";
 import styles from "./css/login.css";
@@ -17,20 +17,7 @@ class Credential extends React.Component{
             <div className="limiter">
             <div className="container-login">
             <div className="wrap-login">
-                <form method="POST" action ='/login' className="login100-form validate-form">
-                    
-                
-
-                    <div className="avatar">
-                        <img width="60" src={avatar}/>
-                    </div>
-
-                    <Login/>
-                    
-                    
-                    
-                </form>
-
+               <Login/>
                 <div className="login100-more">
                 </div>
             </div>
