@@ -1,15 +1,18 @@
-import React from "react";
-import { ReactDOM } from "react";
+import React from 'react'
+import { Link } from 'react-router-dom';
+import styles from './css/nav.css'
 
 
-class Nav extends React.Component{
-    render(){
-        return(
-            <Nav className="Navbar">
-                <h1>Pustak Bandaar</h1>
-            </Nav>
-        )
-    }
+function Nav(){
+    return(
+        <nav className="Nav_bar">
+            <h1>Pustak Bandaar</h1>
+            <div className='nav-links' tabIndex="1">
+               <span><Link to="/dash" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}}>Dashboard</Link></span>
+               <span><Link to="/post" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}}>sell</Link></span>
+            </div>
+        </nav>
+    )
 }
 
 export default Nav;
