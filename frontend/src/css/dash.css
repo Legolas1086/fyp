@@ -11,13 +11,13 @@
     display: flex;
     width: 100%;
     flex-direction: column;
-    background-color: aqua; 
+  
     margin-top: 5rem;   
 }
 
 .content-card{
     background-color: blue;
-    height: 5%;
+    margin-top: 2%;
     color: white;
 }
 

@@ -14,8 +14,6 @@ class Dashboard extends React.Component{
                 <Nav/>
 
                 <div className="dash-body">
-                   <h1 >Dashboard is being developed</h1>
-                   <h2>wait</h2>
                    <div className="content-card">
                        <Link to="/details"><img src={bookimage}></img></Link>
                        <h3>Title</h3>
