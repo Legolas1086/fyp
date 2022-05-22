@@ -2,13 +2,31 @@ import React from "react";
 import { ReactDOM } from "react";
 import { Link } from "react-router-dom";
 import avatar from "./images/avatar.svg";
+import axios from 'axios';
 
 
 class Login extends React.Component{
+    constructor(){
+        super()
+        this.state={
+            username:"",
+            email:""
+        }
+    }
+
     handleSubmit = (event)=>{
         console.log(event.target[0].value);
         console.log(event.target[1].value);
     }
+
+    componentDidMount(){
+        fetch("http://127.0.0.1:8000/demo/")
+        .then(res=>(res.json()))
+        .then(data=>{
+        console.log(data[0].username)})
+       
+    }
+
     render(){
      return(
              <form className="login100-form validate-form" onSubmit={this.handleSubmit}>      
