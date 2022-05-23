@@ -2,14 +2,21 @@ from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 from sqlalchemy import true
 from yaml import serialize
-from .models import Users
+from .models import Books, Users
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializer import UserSerializer
+from .serializer import UserSerializer,BooksSerializer
 
 
-class Demo(APIView):
+class FetchUser(APIView):
     def get(self,request):
         user = Users.objects.all()
         serialize = UserSerializer(user,many=true)
+        return Response(serialize.data)
+
+class FetchBookDetails(APIView):
+    def get(self,request):
+        input_isbn="0000000002"
+        books = Books.objects.filter(isbn=input_isbn)
+        serialize = BooksSerializer(books,many=true)
         return Response(serialize.data)

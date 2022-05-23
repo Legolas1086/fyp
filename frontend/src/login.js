@@ -57,7 +57,7 @@ class Login extends React.Component{
 
                     <div className="container-login100-form-btn">
                         <button className="login100-form-btn">
-                            <Link to="/dash" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}} name = "dashboard">Login</Link>
+                            <Link to="/" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}} name = "dashboard">Login</Link>
                             
                         </button>
                     </div>

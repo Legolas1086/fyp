@@ -1,0 +1,30 @@
+.details-outer{
+    display: flex;
+    flex-direction: column;
+}
+
+.details-body{
+    margin-top: 10rem;
+    display: flex;
+    flex-direction: row;
+    width:100%;
+   
+}
+
+.details-img{
+    margin-left: 10%;
+}
+
+.details-img>img{
+    width:30rem;
+    height:40rem;
+}
+
+.book-details{
+    margin-left: 10rem;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
