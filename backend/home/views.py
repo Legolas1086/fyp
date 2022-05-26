@@ -14,6 +14,12 @@ class FetchUser(APIView):
         serialize = UserSerializer(user,many=true)
         return Response(serialize.data)
 
+class FetchBooks(APIView):
+    def get(self,request):
+        books = Books.objects.all()
+        serialize = BooksSerializer(books,many=true)
+        return Response(serialize.data)
+
 class FetchBookDetails(APIView):
     def get(self,request):
         input_isbn="0000000002"

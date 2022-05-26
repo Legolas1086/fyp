@@ -10,11 +10,6 @@ class Details extends React.Component{
         data:{},
     }
 
-    fetchImage(){
-        fetch("http://127.0.0.1:8000/images/bookimage_yu5dsh6.jpg")
-        .then(res=>res.data)
-        .then(data=>console.log(data))
-    }
 
     componentDidMount(){
         fetch("http://127.0.0.1:8000/bookdetails/")
