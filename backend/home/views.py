@@ -22,7 +22,8 @@ class FetchBooks(APIView):
 
 class FetchBookDetails(APIView):
     def get(self,request):
-        input_isbn="0000000002"
+        print(request.query_params)
+        input_isbn=request.query_params['id']
         books = Books.objects.filter(isbn=input_isbn)
         serialize = BooksSerializer(books,many=true)
         return Response(serialize.data)

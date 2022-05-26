@@ -12,6 +12,7 @@ class Dashboard extends React.Component{
        state={
             isloading:true,
             data:['0'],
+            idClicked:""
         }
     
 
@@ -28,6 +29,11 @@ class Dashboard extends React.Component{
         .then(this.setState({isloading:false}))
     }
 
+    handleClick=event=>{
+        this.setState({idClicked:event.currentTarget.id})
+        console.log(this.state.idClicked)
+    }
+
     render(){
         return(
             
@@ -39,8 +45,11 @@ class Dashboard extends React.Component{
                 this.state.data.map((book)=>
                 
                    <div className="content-card">
-                       <Link to="/details"><img src={bookimage}></img></Link>
-                       <h3>{book.bookname}</h3>
+                        <Link to="/details" state={{idDetails:book.isbn}}>
+                           <img id = {book.id}src={bookimage}></img>
+                           <h3>{book.bookname}</h3>
+                        </Link>
+                       
                     
 
                    </div>
