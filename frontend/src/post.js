@@ -19,7 +19,7 @@ const Post = (props) =>{
     const [img,setImg] = useState(image);
 
     useEffect(()=>{
-        setLog(props.props.loggedin)
+        setLog(localStorage.getItem('id'))
     },[log,img,prev]);
 
     function handleChangeT(event){
@@ -59,8 +59,8 @@ const Post = (props) =>{
         form_data.append('publisher', publisher);
         form_data.append('description', description);
         form_data.append('image', img.image[0],img.image[0].name);
-        form_data.append('cost',cost)
-        form_data.append('cost', cost);
+        form_data.append('cost',cost);
+        form_data.append('sellerid', log);
         let url = 'http://127.0.0.1:8000/posts/';
         axios.post(url, form_data, {
             headers: {

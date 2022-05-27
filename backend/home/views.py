@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
-from sqlalchemy import true
+from django.forms.models import model_to_dict
+from sqlalchemy import false, null, true
 from yaml import serialize
 from .models import Books, Users
 from rest_framework.views import APIView
@@ -21,6 +22,18 @@ class RegisterUser(APIView):
         else:
             print('error', posts_serializer.errors)
             return Response(posts_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class Authenticate(APIView):
+    def get(self,request):
+        print(request.query_params)
+        input_password = request.query_params['pass']
+        input_email = request.query_params['email']
+        user = Users.objects.filter(email=input_email)
+        if user[0].password == input_password:
+            return Response(user[0].id)
+        else:
+            return Response(null)      
+
 
 
 class FetchUser(APIView):

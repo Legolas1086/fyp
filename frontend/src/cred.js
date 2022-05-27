@@ -5,10 +5,11 @@ import login from "./images/login.svg";
 import drawing from "./images/drawing.svg";
 import styles from "./css/login.css";
 import Login from "./login.js"
+import { useNavigate } from "react-router-dom";
 
 
-class Credential extends React.Component{
-    render(){
+const Credential=()=>{
+        let navigation = useNavigate()
         return(
         <div className="OuterContainer">
                 <div className="imgs">
@@ -17,7 +18,7 @@ class Credential extends React.Component{
             <div className="limiter">
             <div className="container-login">
             <div className="wrap-login">
-               <Login/>
+               <Login navigation={navigation}/>
                 <div className="login100-more">
                 </div>
             </div>
@@ -29,7 +30,7 @@ class Credential extends React.Component{
             
 
         );
-    }
+    
 }
 
 export default Credential;

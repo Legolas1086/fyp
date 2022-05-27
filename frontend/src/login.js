@@ -3,20 +3,27 @@ import { ReactDOM } from "react";
 import { Link } from "react-router-dom";
 import avatar from "./images/avatar.svg";
 import axios from 'axios';
-
+import { Navigate } from "react-router-dom";
+import Nav from "./nav";
 
 class Login extends React.Component{
     
     state={
-            username:"",
+            password:"g",
             email:"",
         }
     
-    handleSubmit = (event)=>{    
-        if(this.state.username==(event.target[0].value)&&console.log(event.target[1].value)==this.state.password){
-            this.props.checkLogin(true)
+        onChange=(event)=>{
+            this.setState({[event.target.name]:event.target.value})
         }
-        
+
+    handleSubmit = (event)=>{    
+        console.log(this.state.password)
+        let url = "http://127.0.0.1:8000/authenticate"
+        axios.get(url,{params:{'email':this.state.email,'pass':this.state.password}})
+        .then(res=>res.data)
+        .then(res=>{
+            localStorage.setItem('id',res)})
     }
 
     componentDidMount(){
@@ -35,14 +42,14 @@ class Login extends React.Component{
                     </div>
 
                     <div className="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                        <input className="input100" autoComplete="off" type="text" name="email"></input>
+                        <input className="input100" autoComplete="off" type="text" name="email" onChange={this.onChange}></input>
                         <span className="focus-input100"></span>
                         <span className="label-input100">Email</span>
                     </div>
                     
                     
                     <div className="wrap-input100 validate-input" data-validate="Password is required">
-                        <input className="input100" type="password" name="password"></input>
+                        <input className="input100" type="password" name="password" onChange={this.onChange}></input>
                         <span className="focus-input100"></span>
                         <span className="label-input100">Password</span>
                     </div>
@@ -61,7 +68,7 @@ class Login extends React.Component{
 
                     <div className="container-login100-form-btn">
                         <Link to="/" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}} name = "dashboard">
-                        <button type="submit" className="login100-form-btn">
+                        <button type="submit" className="login100-form-btn" onClick={this.handleSubmit}>
                             Login
                             
                         </button>

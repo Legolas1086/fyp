@@ -10,25 +10,37 @@ import bookimage from "./images/bookimage.jpg";
 class Dashboard extends React.Component{
     state = {
         isloading:true,
-        data:[]
+        data:[],
+        islogged:0
     }
     
 
     
     
     componentDidMount(){
-        fetch("http://127.0.0.1:8000/books/")
-        .then((response) => response.json())
-        .then((res) => {console.log(res[5].bookname);
+        const loggedid = localStorage.getItem('id')
+        this.setState({ islogged: loggedid }, () => {
+            console.log(this.state.islogged);
+            fetch("http://127.0.0.1:8000/books/")
+            .then((response) => response.json())
+            .then((res) => {console.log(res[5].bookname);
                         return res})
-        .then((res) => {this.setState({data:res})})
-        .then(this.setState({isloading:false}))
+            .then((res) => {this.setState({data:res})})
+            .then(this.setState({isloading:false}))
+          }); 
+        
+       
     }
 
 
     
 
     render(){
+        if(this.state.loggedid==0){
+            return(
+                <Navigate to="/login"/>
+            )
+        }
         return(
             <div>
             
@@ -55,9 +67,13 @@ class Dashboard extends React.Component{
             </div>
             
             </div>
+            
         
         
         );
+            
+           
+            
     }
     
 }
