@@ -9,16 +9,18 @@ class Login extends React.Component{
     
     state={
             username:"",
-            email:""
+            email:"",
         }
     
-    handleSubmit = (event)=>{
-        console.log(event.target[0].value);
-        console.log(event.target[1].value);
+    handleSubmit = (event)=>{    
+        if(this.state.username==(event.target[0].value)&&console.log(event.target[1].value)==this.state.password){
+            this.props.checkLogin(true)
+        }
+        
     }
 
     componentDidMount(){
-        fetch("http://127.0.0.1:8000/demo/")
+        fetch("http://127.0.0.1:8000/users/")
         .then(res=>(res.json()))
         .then(data=>{this.setState({username:data[0].username})
         console.log(this.state.username)})

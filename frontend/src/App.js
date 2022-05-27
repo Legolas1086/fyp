@@ -6,10 +6,16 @@ import Dashboard from './dashboard.js';
 import Details from './details';
 import React from 'react';
 import Nav from './nav';
-
+import Post
+ from './post';
 class App extends React.Component {
   state={
-    logged:false
+    loggedin:true
+  }
+
+  callBack(loginData){
+    this.setState({loggedin:loginData})
+    console.log(this.state.loggedin)
   }
 
   render(){
@@ -17,13 +23,13 @@ class App extends React.Component {
 
       <Router>
         <div>
-         
           <div className="Content">
           
             <Routes>
-              <Route exact path="/login" element={<Credential/>} />
-              <Route exact path="/" element={<Dashboard/>}/>
-              <Route exact path="/details" element={<Details/>}/>
+              <Route exact path="/login" element={<Credential checkLogin={this.callBack}/>} />
+              <Route exact path="/" element={<Dashboard props={{loggedin:this.state.loggedin}}/>}/>
+              <Route exact path="/details" element={<Details props={{loggedin:this.state.loggedin}}/>}/>
+              <Route exact path="/post" element={<Post props={{loggedin:this.state.loggedin}}/>}/>
             </Routes>
           </div>
         </div>

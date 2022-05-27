@@ -1,44 +1,50 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ReactDOM} from "react";
 import Nav from "./nav.js";
 import styles from './css/dash.css';
-import { Link,Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import bookimage from "./images/bookimage.jpg";
 
 
 
-const Dashboard =(props)=>{
-    const[isloading,setLoading] = useState(true);
-    const[data,setData] = useState([]);
-    const[loggedin,setLoggedin] = useState(false);
+class Dashboard extends React.Component{
+  
+       state={
+            isloading:true,
+            data:['0'],
+            idClicked:"",
+            loggedin:false,
+        }
     
 
     
     
-    useEffect(()=>{
-        console.log(props)
-        //setLoggedin({loggedin:this.props.props.loggedin})
-        console.log(loggedin)
+    componentDidMount(){
+        this.setState({loggedin:this.props.props.loggedin})
+        console.log(this.state.isloading)
         fetch("http://127.0.0.1:8000/books/")
         .then((response) => response.json())
         .then((res) => {console.log(res[5].bookname);
                         return res})
-        .then((res) => {setData(res)})
-        .then(setLoading(false))
-    },[isloading,data,loggedin]);
+        .then((res) => {this.setState({data: res})
+        console.log(this.state.data[0].bookname)})
+        .then(this.setState({isloading:false}))
+    }
 
+    handleClick=event=>{
+        this.setState({idClicked:event.currentTarget.id})
+        console.log(this.state.idClicked)
+    }
 
-    
-
-    
+    render(){
         return(
-            <div>
             
             <div className="dashboard-outer">
                 <Nav/>
                 <div className="dash-body">
-                {isloading?<h1>Please wait ...</h1>:
-                   data.map((book)=>
+                {console.log(this.state.isloading)}
+                {this.state.isloading?<h1>Please wait ...</h1>:
+                this.state.data.map((book)=>
                 
                    <div className="content-card">
                         <Link to="/details" state={{idDetails:book.isbn}}>
@@ -55,12 +61,9 @@ const Dashboard =(props)=>{
                 
                 </div>
             </div>
-            
-            </div>
-        
         
         );
-    
+    }
 }
 
 export default Dashboard;
