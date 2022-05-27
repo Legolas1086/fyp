@@ -7,35 +7,36 @@ import bookimage from "./images/bookimage.jpg";
 
 
 
-const Dashboard =(props)=>{
-    const[isloading,setLoading] = useState(true);
-    const[data,setData] = useState([]);
-    const[loggedin,setLoggedin] = useState(false);
+class Dashboard extends React.Component{
+    state = {
+        isloading:true,
+        data:[]
+    }
     
 
     
     
-    useEffect(()=>{
+    componentDidMount(){
         fetch("http://127.0.0.1:8000/books/")
         .then((response) => response.json())
         .then((res) => {console.log(res[5].bookname);
                         return res})
-        .then((res) => {setData(res)})
-        .then(setLoading(false))
-    },[data]);
+        .then((res) => {this.setState({data:res})})
+        .then(this.setState({isloading:false}))
+    }
 
 
     
 
-    
+    render(){
         return(
             <div>
             
             <div className="dashboard-outer">
                 <Nav/>
                 <div className="dash-body">
-                {isloading?<h1>Please wait ...</h1>:
-                   data.map((book)=>
+                {this.state.isloading?<h1>Please wait ...</h1>:
+                   this.state.data.map((book)=>
                 
                    <div className="content-card">
                         <Link to="/details" state={{idDetails:book.isbn}}>
@@ -57,6 +58,7 @@ const Dashboard =(props)=>{
         
         
         );
+    }
     
 }
 

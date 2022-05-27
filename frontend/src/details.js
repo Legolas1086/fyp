@@ -15,17 +15,12 @@ const Details=(props)=>{
     const location = useLocation()
     
     useEffect(()=>{
-        console.log(location.state.idDetails)
         setState(location.state.idDetails)
         fetch("http://127.0.0.1:8000/bookdetails/?id=".concat(state))
         .then(res=>(res.json()))
         .then(res=>setData(res[0]))
         .then(console.log(data.image))
         console.log(data.image)
-        
-        
-        
-       
     },[location,state,data]);
 
 
