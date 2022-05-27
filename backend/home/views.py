@@ -9,6 +9,19 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from .serializer import UserSerializer,BooksSerializer
 from rest_framework import status
 
+class RegisterUser(APIView):
+    parser_classes = (MultiPartParser, FormParser)
+
+
+    def post(self, request, *args, **kwargs):
+        posts_serializer = UserSerializer(data=request.data)
+        if posts_serializer.is_valid():
+            posts_serializer.save()
+            return Response(posts_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print('error', posts_serializer.errors)
+            return Response(posts_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class FetchUser(APIView):
     def get(self,request):

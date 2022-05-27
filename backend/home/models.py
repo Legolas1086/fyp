@@ -11,7 +11,7 @@ def upload_to(instance,filename):
     return 'images/{filename}'.format(filename=filename)
 
 class Users(models.Model):
-    id = models.CharField(primary_key=true, unique=true,max_length=10)
+    id = models.AutoField(primary_key=true,unique=true)
     username = models.CharField(unique=True,null=false,max_length=20)
     email = models.EmailField(unique=True,null=false)
     password = models.CharField(max_length=20)
@@ -28,4 +28,4 @@ class Books(models.Model):
     description = models.CharField(max_length=150,default="Unknown")
     cost = models.IntegerField(default=0)
     image = models.ImageField(upload_to)
-    sellerid = models.CharField(max_length=10,default="0000000001")
+    sellerid = models.ForeignKey(Users,on_delete=models.CASCADE,default="1")

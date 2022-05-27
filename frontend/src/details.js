@@ -8,7 +8,7 @@ import styles from "./css/details.css"
 
 
 const Details=(props)=>{
-    const [state,setState] = useState("0000000001")
+    const [state,setState] = useState("1")
     const [data,setData] = useState({})
 
     

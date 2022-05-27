@@ -47,6 +47,8 @@ class Login extends React.Component{
                         <span className="label-input100">Password</span>
                     </div>
 
+                    
+
                     <div className="flex-sb-m w-full p-t-3 p-b-32">
 
                         <div className="forgot-password">
@@ -58,10 +60,12 @@ class Login extends React.Component{
             
 
                     <div className="container-login100-form-btn">
-                        <button className="login100-form-btn">
-                            <Link to="/" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}} name = "dashboard">Login</Link>
+                        <Link to="/" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}} name = "dashboard">
+                        <button type="submit" className="login100-form-btn">
+                            Login
                             
                         </button>
+                        </Link>
                     </div>
 
                     <div className="text-center p-t-46 p-b-20">
@@ -71,9 +75,11 @@ class Login extends React.Component{
                     </div>
     
                     <div className="container-login100-form-btn">
-                        <button type="submit" className="login100-form-btn">
+                        <Link to="/register" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}} >
+                        <button  className="login100-form-btn">
                             Register
                         </button>
+                        </Link>
                     </div>       
                 </form>
      );

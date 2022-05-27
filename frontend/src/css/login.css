@@ -313,7 +313,7 @@ input.input100 {
 /*------------------------------------------------------------------
 [ Button ]*/
 .container-login100-form-btn {
-  width: 100%;
+  width: 40rem;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -331,8 +331,8 @@ input.input100 {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 20px;
-  width: 100%;
+  padding: 0px 20px;
+  width: 40rem;
   height: 50px;
   border:none;
   border-radius: 10px;

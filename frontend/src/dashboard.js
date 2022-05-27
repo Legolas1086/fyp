@@ -16,16 +16,13 @@ const Dashboard =(props)=>{
     
     
     useEffect(()=>{
-        console.log(props)
-        //setLoggedin({loggedin:this.props.props.loggedin})
-        console.log(loggedin)
         fetch("http://127.0.0.1:8000/books/")
         .then((response) => response.json())
         .then((res) => {console.log(res[5].bookname);
                         return res})
         .then((res) => {setData(res)})
         .then(setLoading(false))
-    },[isloading,data,loggedin]);
+    },[data]);
 
 
     
@@ -42,7 +39,7 @@ const Dashboard =(props)=>{
                 
                    <div className="content-card">
                         <Link to="/details" state={{idDetails:book.isbn}}>
-                           <img id = {book.id}src={bookimage}></img>
+                           <img id = {book.id}src={bookimage} style={{width:"250px",height:"300px"}}></img>
                            <h3>{book.bookname}</h3>
                         </Link>
                        
