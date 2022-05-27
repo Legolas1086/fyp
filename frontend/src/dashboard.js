@@ -40,7 +40,7 @@ class Dashboard extends React.Component{
                 
                    <div className="content-card">
                         <Link to="/details" state={{idDetails:book.isbn}}>
-                           <img id = {book.id}src={bookimage} style={{width:"250px",height:"300px"}}></img>
+                           <img id = {book.id} src={"http://127.0.0.1:8000".concat(book.image)} style={{width:"250px",height:"300px"}}></img>
                            <h3>{book.bookname}</h3>
                         </Link>
                        
