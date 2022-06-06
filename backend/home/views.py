@@ -3,11 +3,11 @@ from django.http import HttpResponse,JsonResponse
 from django.forms.models import model_to_dict
 from sqlalchemy import false, null, true
 from yaml import serialize
-from .models import Books, Users
+from .models import Books, Users, chatHistory
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
-from .serializer import UserSerializer,BooksSerializer
+from .serializer import UserSerializer,BooksSerializer, chatHistorySerializer
 from rest_framework import status
 from django.db.models import Q
 
@@ -80,4 +80,10 @@ class MyBooks(APIView):
         owner = request.query_params['sellerid']
         books = Books.objects.filter(sellerid=owner)
         serialize = BooksSerializer(books,many=true)
+        return Response(serialize.data)
+
+class displayChat(APIView):
+    def get(self,request):
+        chats = chatHistory.objects.all()
+        serialize = chatHistorySerializer(chats,many = true)
         return Response(serialize.data)

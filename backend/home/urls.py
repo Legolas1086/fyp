@@ -1,6 +1,6 @@
 from xml.etree.ElementInclude import include
 from django.urls import path
-from .views import FetchUser,FetchBookDetails,FetchBooks,PostBook,RegisterUser,Authenticate,MyBooks
+from .views import FetchUser,FetchBookDetails,FetchBooks,PostBook,RegisterUser,Authenticate,MyBooks,displayChat
 from rest_framework import routers
 
 
@@ -13,4 +13,5 @@ urlpatterns = [
     path('register/',RegisterUser.as_view()),
     path('authenticate/',Authenticate.as_view()),
     path('mybooks/',MyBooks.as_view()),
+    path('chats/',displayChat.as_view()),
 ]
