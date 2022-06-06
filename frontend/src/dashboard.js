@@ -4,6 +4,7 @@ import Nav from "./nav.js";
 import styles from './css/dash.css';
 import { Link,Navigate } from "react-router-dom";
 import bookimage from "./images/bookimage.jpg";
+import axios from "axios";
 
 
 
@@ -21,9 +22,9 @@ class Dashboard extends React.Component{
         const loggedid = localStorage.getItem('id')
         this.setState({ islogged: loggedid }, () => {
             console.log(this.state.islogged);
-            fetch("http://127.0.0.1:8000/books/")
-            .then((response) => response.json())
-            .then((res) => {console.log(res[5].bookname);
+            axios.get("http://127.0.0.1:8000/books/",{params:{'id':this.state.islogged}})
+            .then((response) => response.data)
+            .then((res) => {console.log(res[0].bookname);
                         return res})
             .then((res) => {this.setState({data:res})})
             .then(this.setState({isloading:false}))

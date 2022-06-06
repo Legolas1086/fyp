@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
 from .serializer import UserSerializer,BooksSerializer
 from rest_framework import status
+from django.db.models import Q
 
 class RegisterUser(APIView):
     parser_classes = (MultiPartParser, FormParser)
@@ -44,6 +45,11 @@ class FetchUser(APIView):
 
 class FetchBooks(APIView):
     def get(self,request):
+        userid = request.query_params['id']
+        user = Users.objects.filter(id=userid)
+
+        #lookups = Q(bookname__icontains=user[0].branch) | Q(author__icontains=user[0].branch) | Q(category__icontains=user[0].branch) | Q(description__icontains=user[0].branch) | Q(category__icontains=user[0].interests)
+
         books = Books.objects.all()
         serialize = BooksSerializer(books,many=true)
         return Response(serialize.data)
@@ -68,3 +74,10 @@ class PostBook(APIView):
         else:
             print('error', posts_serializer.errors)
             return Response(posts_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class MyBooks(APIView):
+    def get(self,request):
+        owner = request.query_params['sellerid']
+        books = Books.objects.filter(sellerid=owner)
+        serialize = BooksSerializer(books,many=true)
+        return Response(serialize.data)

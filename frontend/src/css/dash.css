@@ -17,16 +17,19 @@
 }
 
 .content-card{
-    background-color: blue;
+    background-color: white;
     margin-top: 2%;
     margin-left:7rem;
+    flex-wrap: wrap;
+    max-width: 250px;
 }
 
 
 
 h3{
     text-decoration: none;
-    color: white;
+    color: black;
+    white-space: break-spaces
 }
 
 
