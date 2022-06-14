@@ -18,29 +18,30 @@ class Dashboard extends React.Component{
     
 
     
+    async fetchData  (url,data){
+        
+        console.log(url);
+            axios.get(url,{params:data})
+            .then((response) => response.data)
+            .then((res) => {console.log(res[0].bookname);
+                    return res})
+            .then((res) => {this.setState({data:res})})
+            .then(this.setState({isloading:false}))
     
-    componentDidMount(){
+    }
+
+    componentWillMount(){
         const loggedid = localStorage.getItem('id')
         this.setState({ islogged: loggedid }, () => {
-            this.fetchData();
+            this.fetchData("http://127.0.0.1:8000/books/",{'id':this.state.islogged});
           }); 
         
        
     }
 
-    fetchData(){
-        if(this.state.issearching){
-
-        }
-        else{
-            console.log(this.state.islogged);
-                axios.get("http://127.0.0.1:8000/books/",{params:{'id':this.state.islogged}})
-                .then((response) => response.data)
-                .then((res) => {console.log(res[0].bookname);
-                        return res})
-                .then((res) => {this.setState({data:res})})
-                .then(this.setState({isloading:false}))
-        }
+    handleSubmit=(event)=>{
+        event.preventDefault();
+        this.fetchData("http://127.0.0.1:8000/searchbook/",{'search':"wings"});
     }
 
 
@@ -57,13 +58,13 @@ class Dashboard extends React.Component{
             
             <div className="dashboard-outer">
                 <Nav/>
-                <form className="search-form">
+                <form className="search-form" onSubmit={this.handleSubmit}>
                     <input className="input1" type="text" placeholder="search"/>
                     <button type="submit">search</button>
                 </form>
                 <div className="dash-body">
-                {this.state.isloading?<h1>Please wait ...</h1>:
-                   this.state.data.map((book)=>
+
+                   {this.state.data.map((book)=>
                 
                    <div className="content-card">
                         <Link to="/details" state={{idDetails:book.isbn}}>
