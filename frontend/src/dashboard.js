@@ -13,7 +13,7 @@ class Dashboard extends React.Component{
         isloading:true,
         data:[],
         islogged:0,
-        issearching:false,
+        input:"",
     }
     
 
@@ -39,9 +39,13 @@ class Dashboard extends React.Component{
        
     }
 
+    handleChange=(event)=>{
+        this.setState({input:event.target.value})
+    }
+
     handleSubmit=(event)=>{
         event.preventDefault();
-        this.fetchData("http://127.0.0.1:8000/searchbook/",{'search':"wings"});
+        this.fetchData("http://127.0.0.1:8000/searchbook/",{'search':this.state.input});
     }
 
 
@@ -59,7 +63,7 @@ class Dashboard extends React.Component{
             <div className="dashboard-outer">
                 <Nav/>
                 <form className="search-form" onSubmit={this.handleSubmit}>
-                    <input className="input1" type="text" placeholder="search"/>
+                    <input className="input1" type="text" placeholder="search" onChange={this.handleChange}/>
                     <button type="submit">search</button>
                 </form>
                 <div className="dash-body">
