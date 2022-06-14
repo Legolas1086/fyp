@@ -8,12 +8,11 @@ import axios from "axios";
 
 
 
-class Dashboard extends React.Component{
+class MyBooks extends React.Component{
     state = {
         isloading:true,
         data:[],
-        islogged:0,
-        issearching:false,
+        islogged:0
     }
     
 
@@ -22,25 +21,16 @@ class Dashboard extends React.Component{
     componentDidMount(){
         const loggedid = localStorage.getItem('id')
         this.setState({ islogged: loggedid }, () => {
-            this.fetchData();
+            console.log(this.state.islogged);
+            axios.get("http://127.0.0.1:8000/mybooks/",{params:{'sellerid':this.state.islogged}})
+            .then((response) => response.data)
+            .then((res) => {console.log(res[0].bookname);
+                        return res})
+            .then((res) => {this.setState({data:res})})
+            .then(this.setState({isloading:false}))
           }); 
         
        
-    }
-
-    fetchData(){
-        if(this.state.issearching){
-
-        }
-        else{
-            console.log(this.state.islogged);
-                axios.get("http://127.0.0.1:8000/books/",{params:{'id':this.state.islogged}})
-                .then((response) => response.data)
-                .then((res) => {console.log(res[0].bookname);
-                        return res})
-                .then((res) => {this.setState({data:res})})
-                .then(this.setState({isloading:false}))
-        }
     }
 
 
@@ -57,18 +47,15 @@ class Dashboard extends React.Component{
             
             <div className="dashboard-outer">
                 <Nav/>
-                <form className="search-form">
-                    <input className="input1" type="text" placeholder="search"/>
-                    <button type="submit">search</button>
-                </form>
                 <div className="dash-body">
                 {this.state.isloading?<h1>Please wait ...</h1>:
                    this.state.data.map((book)=>
                 
                    <div className="content-card">
-                        <Link to="/details" state={{idDetails:book.isbn}}>
+                        <Link to="/editbook" state={{editid:book.isbn}}>
                            <img id = {book.id} src={"http://127.0.0.1:8000".concat(book.image)} style={{width:"250px",height:"300px"}}></img>
-                           <h3>{book.bookname}</h3>
+                           <h4>{book.bookname}</h4>
+                    
                         </Link>
                        
                     
@@ -93,4 +80,4 @@ class Dashboard extends React.Component{
     
 }
 
-export default Dashboard;
+export default MyBooks;

@@ -46,11 +46,12 @@ class FetchUser(APIView):
 class FetchBooks(APIView):
     def get(self,request):
         userid = request.query_params['id']
+        print(userid)
         user = Users.objects.filter(id=userid)
 
-        #lookups = Q(bookname__icontains=user[0].branch) | Q(author__icontains=user[0].branch) | Q(category__icontains=user[0].branch) | Q(description__icontains=user[0].branch) | Q(category__icontains=user[0].interests)
+        lookups = Q(bookname__icontains=user[0].branch) | Q(author__icontains=user[0].branch) | Q(category__icontains=user[0].branch) | Q(description__icontains=user[0].branch) | Q(category__icontains=user[0].interests)
 
-        books = Books.objects.all()
+        books = Books.objects.filter(lookups)
         serialize = BooksSerializer(books,many=true)
         return Response(serialize.data)
 
@@ -86,4 +87,13 @@ class displayChat(APIView):
     def get(self,request):
         chats = chatHistory.objects.all()
         serialize = chatHistorySerializer(chats,many = true)
+        return Response(serialize.data)
+
+class SearchBook(APIView):
+    def get(self,request):
+        #userid = request.query_params['id']
+        search_query = request.query_params['search']
+        filter = Q(bookname__icontains=search_query) | Q(author__icontains=search_query) | Q(category__icontains=search_query) | Q(description__icontains=search_query) | Q(category__icontains=search_query)
+        books = Books.objects.filter(filter)
+        serialize = BooksSerializer(books,many=true)
         return Response(serialize.data)

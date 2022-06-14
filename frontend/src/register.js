@@ -12,8 +12,8 @@ class Register extends React.Component{
             email:"",
             password:"",
             branch:"",
-            interests:""
-        }
+            interests:"",
+    }
 
     onChange=(event)=>{
         this.setState({[event.target.name]:event.target.value})

@@ -8,6 +8,8 @@ import React from 'react';
 import Nav from './nav';
 import Post from './post.js';
 import RegisterUser from './registerUser.js';
+import MyBooks from './mybooks';
+import EditBook from './editbook';
  
 class App extends React.Component {
   state={
@@ -32,6 +34,8 @@ class App extends React.Component {
               <Route exact path="/" element={<Dashboard props={{loggedin:this.state.loggedin}}/>}/>
               <Route exact path="/details" element={<Details props={{loggedin:this.state.loggedin}}/>}/>
               <Route exact path="/post" element={<Post props={{loggedin:this.state.loggedin}}/>}/>
+              <Route exact path="/mybooks" element={<MyBooks props={{loggedin:this.state.loggedin}}/>}/>
+              <Route exact path="/editbook" element={<EditBook props={{loggedin:this.state.loggedin}}/>}/>
             </Routes>
           </div>
         </div>
