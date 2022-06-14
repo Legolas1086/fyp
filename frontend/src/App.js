@@ -10,7 +10,8 @@ import Post from './post.js';
 import RegisterUser from './registerUser.js';
 import MyBooks from './mybooks';
 import EditBook from './editbook';
- 
+import Chat from './chat';
+
 class App extends React.Component {
   state={
     loggedin:true
@@ -36,6 +37,7 @@ class App extends React.Component {
               <Route exact path="/post" element={<Post props={{loggedin:this.state.loggedin}}/>}/>
               <Route exact path="/mybooks" element={<MyBooks props={{loggedin:this.state.loggedin}}/>}/>
               <Route exact path="/editbook" element={<EditBook props={{loggedin:this.state.loggedin}}/>}/>
+              <Route exact path="/chat" element={<Chat props={{loggedin:this.state.loggedin}}/>}/>
             </Routes>
           </div>
         </div>

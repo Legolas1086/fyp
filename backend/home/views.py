@@ -85,7 +85,10 @@ class MyBooks(APIView):
 
 class displayChat(APIView):
     def get(self,request):
-        chats = chatHistory.objects.all()
+        user1 = request.query_params['user1']
+        user2 = request.query_params['user2']
+        lookups = (Q(sender=user1) and Q(receiver=user2)) | (Q(receiver=user1) and Q(sender=user2))
+        chats = chatHistory.objects.filter(lookups)
         serialize = chatHistorySerializer(chats,many = true)
         return Response(serialize.data)
 

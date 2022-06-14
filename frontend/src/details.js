@@ -4,6 +4,7 @@ import Nav from "./nav.js";
 import { useLocation } from "react-router-dom";
 import bookimage from "./images/bookimage.jpg";
 import styles from "./css/details.css"
+import { Link } from "react-router-dom";
 
 
 
@@ -21,7 +22,7 @@ const Details=(props)=>{
         .then(res=>setData(res[0]))
         .then(console.log(data.image))
         console.log(data.image)
-    },[location,state,data]);
+    },[],[location,state,data]);
 
 
     
@@ -41,6 +42,7 @@ const Details=(props)=>{
                       <br/>
                       <h4>Rs.{data.cost}</h4>
                       <p>Owned by : {data.sellerid}</p>
+                      <Link to="/chat" state={{senderid:data.sellerid}}>contact seller</Link>
                   </div>
               </div>
             </div>
