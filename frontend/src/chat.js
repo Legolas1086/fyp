@@ -48,17 +48,20 @@ class Chat extends React.Component{
                         </div>
                         <div className="chat-history" style={{height:"30rem"}}>
                             {this.state.messages.map((chat)=>
-                            <div>
-                                <p>{chat.timestamp}</p>
-                                <h1>{chat.message}</h1>           
-
-
+                            
+                            
+                            <div className="chat-message" style={{marginLeft:chat.sender==this.state.islogged?"25rem":"1rem",backgroundColor:chat.sender==this.state.islogged?"blue":"gray"}}>
+                                <p className="chat-message-timestamp">{chat.timestamp}</p>
+                                <p className="chat-message-message">{chat.message}</p>
+                                           
                             </div>
+                           
+                            
                             )}
                         </div>
                         <div className="send-container">
                             <form className="message">
-                                <input className="message-input" type="text"/>
+                                <input className="message-input" type="text" placeholder="message"/>
                                 <button className="send" type="submit">send</button>
                             </form>
                         </div>
