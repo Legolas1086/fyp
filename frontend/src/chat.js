@@ -10,6 +10,7 @@ class Chat extends React.Component{
         senderid:"",
         sender:"legolas",
         messages:[],
+        inputMessage:"",
     }
 
     fetchData(){
@@ -28,8 +29,30 @@ class Chat extends React.Component{
         setInterval(() => {
             this.fetchData(); 
         }, 5000);
-        
-        
+             
+    }
+
+    handleChange=(event)=>{
+        this.setState({inputMessage:event.target.value})
+    }
+
+    handleSubmit = (event) =>{
+        event.preventDefault();
+        let data = new FormData();
+        data.append('sender',this.state.islogged)
+        data.append('receiver',2)
+        data.append('message',this.state.inputMessage)
+
+        let url = "http://127.0.0.1:8000/postchat/";
+        axios.post(url,data,{
+            headers: {
+                'content-type': 'multipart/form-data',
+            }
+          }).then(res => {
+            console.log(res.data);
+          })
+          .catch(err => console.log(err))
+        this.setState({inputMessage:""})
     }
 
 
@@ -60,8 +83,8 @@ class Chat extends React.Component{
                             )}
                         </div>
                         <div className="send-container">
-                            <form className="message">
-                                <input className="message-input" type="text" placeholder="message"/>
+                            <form className="message" onSubmit={this.handleSubmit}>
+                                <input className="message-input" type="text" placeholder="message" onChange={this.handleChange} value={this.state.inputMessage}/>
                                 <button className="send" type="submit">send</button>
                             </form>
                         </div>

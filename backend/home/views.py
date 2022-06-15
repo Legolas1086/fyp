@@ -1,3 +1,4 @@
+from re import L
 from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 from django.forms.models import model_to_dict
@@ -91,6 +92,20 @@ class displayChat(APIView):
         chats = chatHistory.objects.filter(lookups).order_by('timestamp')
         serialize = chatHistorySerializer(chats,many = true)
         return Response(serialize.data)
+
+class postChat(APIView):
+    parser_classes = (MultiPartParser, FormParser)
+
+
+    def post(self, request, *args, **kwargs):
+        chats_serializer = chatHistorySerializer(data=request.data)
+        if chats_serializer.is_valid():
+            chats_serializer.save()
+            return Response(chats_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print('error', chats_serializer.errors)
+            return Response(chats_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class SearchBook(APIView):
     def get(self,request):
