@@ -50,9 +50,9 @@ class Chat extends React.Component{
                             {this.state.messages.map((chat)=>
                             <div>
                                 <p>{chat.timestamp}</p>
-                                <p>{chat.sender}</p>
-                                <p>{chat.receiver}</p>
-                                <h1>{chat.message}</h1>
+                                <h1>{chat.message}</h1>           
+
+
                             </div>
                             )}
                         </div>
