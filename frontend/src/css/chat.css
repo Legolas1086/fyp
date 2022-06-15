@@ -20,17 +20,18 @@
     height:"40rem";
     background-color: white;
     border-style: solid;
-    border:10px;
+    border-radius:10px;
 }
 
 .sender-box{
     width:100%;
-    border-top: solid 2px;
-    border-bottom: solid 3px;
-    margin-bottom: 0;
+    border: solid 2px;
+    border-color: black;
+    margin-top:0;
     display: block;
     height: 5rem;
-    background-color:white;
+    background-color:blue;
+    color:white;
     border-radius: 10px 10px 0 0 ;
 }
 
