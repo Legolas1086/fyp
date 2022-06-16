@@ -11,6 +11,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from .serializer import UserSerializer,BooksSerializer, chatHistorySerializer
 from rest_framework import status
 from django.db.models import Q
+from .recomendation import sendMail
 
 class RegisterUser(APIView):
     parser_classes = (MultiPartParser, FormParser)
@@ -72,6 +73,7 @@ class PostBook(APIView):
         posts_serializer = BooksSerializer(data=request.data)
         if posts_serializer.is_valid():
             posts_serializer.save()
+            sendMail(posts_serializer.data)
             return Response(posts_serializer.data, status=status.HTTP_201_CREATED)
         else:
             print('error', posts_serializer.errors)
@@ -118,3 +120,12 @@ class SearchBook(APIView):
         books = Books.objects.filter(filter)
         serialize = BooksSerializer(books,many=true)
         return Response(serialize.data)
+
+class EditBook(APIView):
+    def post(self,request):
+        print(request.POST)
+        #sold = request.POST.get['sold']
+        #isbn = request.POST.get['isbn']
+        #object = Books.objects.get(isbn=isbn)
+        #object.price = price
+        #object.sold = sold

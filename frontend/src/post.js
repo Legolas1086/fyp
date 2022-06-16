@@ -9,6 +9,7 @@ import axios from 'axios'
 
 const Post = (props) =>{
     const [log,setLog] = useState(false);
+    const [isbn,setIsbnb] = useState()
     const [title,setTitle] = useState("")
     const [author,setAuthor] = useState("")
     const [publisher,setPublisher] = useState("")
@@ -21,6 +22,10 @@ const Post = (props) =>{
     useEffect(()=>{
         setLog(localStorage.getItem('id'))
     },[log,img,prev]);
+
+    function handleChangeISBN(event){
+        setIsbnb(event.target.value)
+    }
 
     function handleChangeT(event){
         setTitle(event.target.value)
@@ -52,7 +57,7 @@ const Post = (props) =>{
         let form_data = new FormData();
         console.log("before")
         
-        
+        form_data.append('isbn',isbn);
         form_data.append('bookname', title);
         form_data.append('author', author);
         form_data.append('category', category);
@@ -100,6 +105,7 @@ const Post = (props) =>{
                 </div>
                 <div className="post-form">
                     <form onSubmit={handleSubmit}>
+                        <input type="text" placeholder="ISBN" onChange={handleChangeISBN} required/>
                         <input type="text" placeholder="Title" onChange={handleChangeT} required/>
                         <input type="text" placeholder="Author" onChange={handleChangeA} required/>                    
                         <input type="text" placeholder="Publisher" onChange={handleChangeP} required/>

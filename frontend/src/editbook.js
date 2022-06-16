@@ -11,7 +11,7 @@ import axios from "axios";
 const EditBook=(props)=>{
     const [state,setState] = useState("1")
     const [data,setData] = useState({})
-    const [price,setPrice] = useState()
+    const [price,setPrice] = useState(0)
     const [sold,setSold] = useState(false)
 
     
@@ -37,9 +37,16 @@ const EditBook=(props)=>{
     }
 
     function handleSubmit(event){
-        event.preventDefault()
-        
-        //axios.get("http://127.0.0.1:8000/editbook",{'isbn':state,'newPrice':price,'sold':sold})
+
+        axios.post("http://127.0.0.1:8000/editbook/",{'isbn':state,'newPrice':price,'sold':sold},{
+            headers: {
+                'content-type': 'application/json',
+            }
+          }).then(res => {
+            console.log(res.data);
+          })
+          .catch(err => console.log(err))
+      .catch(err => console.log(err))
     }
     
         return(
