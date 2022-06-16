@@ -17,6 +17,7 @@ class Users(models.Model):
     password = models.CharField(max_length=20)
     branch = models.CharField(max_length=20)
     interests = models.CharField(max_length=150)
+    searchHistory = models.CharField(default=" ",max_length=100000)
 
 
 class Books(models.Model):

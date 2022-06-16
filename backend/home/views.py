@@ -109,8 +109,11 @@ class postChat(APIView):
 
 class SearchBook(APIView):
     def get(self,request):
-        #userid = request.query_params['id']
+        userid = request.query_params['id']
         search_query = request.query_params['search']
+        object = Users.objects.get(id=userid)
+        object.searchHistory = object.searchHistory+" "+search_query
+        object.save()
         filter = Q(bookname__icontains=search_query) | Q(author__icontains=search_query) | Q(category__icontains=search_query) | Q(description__icontains=search_query) | Q(category__icontains=search_query)
         books = Books.objects.filter(filter)
         serialize = BooksSerializer(books,many=true)

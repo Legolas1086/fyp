@@ -25,7 +25,7 @@ class Chat extends React.Component{
         const loggedid = localStorage.getItem('id')
         this.setState({islogged:loggedid})
         console.log(this.state.islogged)
-        //setSenderid(location.state.senderid)
+        this.fetchData(); 
         setInterval(() => {
             this.fetchData(); 
         }, 5000);

@@ -45,7 +45,7 @@ class Dashboard extends React.Component{
 
     handleSubmit=(event)=>{
         event.preventDefault();
-        this.fetchData("http://127.0.0.1:8000/searchbook/",{'search':this.state.input});
+        this.fetchData("http://127.0.0.1:8000/searchbook/",{'search':this.state.input,'id':this.state.islogged});
     }
 
 
