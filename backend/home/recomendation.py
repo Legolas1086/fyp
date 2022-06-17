@@ -87,12 +87,12 @@ def profileBasedRecommendation(books,features,user):
         feature_matrix = tf.fit_transform(feature)
         interest_matrix = tf.transform(user_interests)
         interests_similarity = cosine_similarity(feature_matrix,interest_matrix)
+        interests_similarity = max(interests_similarity[:,0])
         if len(searchHistory)>0:
             searchHistory_matrix = tf.transform(searchHistory)
             searchHistory_similarity = cosine_similarity(feature_matrix,searchHistory_matrix)
-        print(interests_similarity)
-        
-
+        cosine_similarities.append(interests_similarity)
+    
         
     return cosine_similarities
     
@@ -103,7 +103,9 @@ def recommend(books,id):
     nltk.download('stopwords')
     features = bookCleaner(books)
     cosine_similarities = profileBasedRecommendation(books,features,user[0])
-    sorted_books = [x for _,x in sorted(zip(cosine_similarities,books))]
+    print(cosine_similarities)
+    sorted_books = [x for _,x in sorted(zip(cosine_similarities,books),reverse=True, key = lambda x: x[0])]
+    print(sorted_books)
     return sorted_books
 
 
