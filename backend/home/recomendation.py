@@ -71,22 +71,26 @@ def bookCleaner(books):
     
     return features
 
-def searchHistoryRecommendation(books,cleaned_books,user):
-    searchHistoryRecommended = []
+
 
     
         
 def profileBasedRecommendation(books,features,user):
     user_interests = cleaner(user.interests)
+    searchHistory  = cleaner(user.searchHistory)
     user_interests = user_interests.split()
+    searchHistory = searchHistory.split()
+    print(searchHistory)
     cosine_similarities = []
     for feature in features:
         tf = TfidfVectorizer(analyzer='word', min_df = 1)
         feature_matrix = tf.fit_transform(feature)
         interest_matrix = tf.transform(user_interests)
-        similarity = cosine_similarity(feature_matrix,interest_matrix)
-        from sklearn.metrics.pairwise import cosine_similarity
-        print(similarity)
+        interests_similarity = cosine_similarity(feature_matrix,interest_matrix)
+        if len(searchHistory)>0:
+            searchHistory_matrix = tf.transform(searchHistory)
+            searchHistory_similarity = cosine_similarity(feature_matrix,searchHistory_matrix)
+        print(interests_similarity)
         
 
         
@@ -98,10 +102,8 @@ def recommend(books,id):
     recommend_list = []
     nltk.download('stopwords')
     features = bookCleaner(books)
-    searchHistoryRecommendation(books,features,user[0])
     cosine_similarities = profileBasedRecommendation(books,features,user[0])
     sorted_books = [x for _,x in sorted(zip(cosine_similarities,books))]
-    print(sorted_books.shape)
     return sorted_books
 
 

@@ -50,7 +50,7 @@ class FetchBooks(APIView):
         userid = request.query_params['id']
         books = Books.objects.all()
         sorted_books = recommend(books,userid)
-        serialize = BooksSerializer(sorted_books,many=true)
+        serialize = BooksSerializer(books,many=true)
         return Response(serialize.data)
 
 class FetchBookDetails(APIView):
