@@ -11,7 +11,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from .serializer import UserSerializer,BooksSerializer, chatHistorySerializer
 from rest_framework import status
 from django.db.models import Q
-from .recomendation import sendMail
+from .recomendation import sendMail,recommend
 
 class RegisterUser(APIView):
     parser_classes = (MultiPartParser, FormParser)
@@ -48,13 +48,9 @@ class FetchUser(APIView):
 class FetchBooks(APIView):
     def get(self,request):
         userid = request.query_params['id']
-        print(userid)
-        user = Users.objects.filter(id=userid)
-
-        lookups = Q(bookname__icontains=user[0].branch) | Q(author__icontains=user[0].branch) | Q(category__icontains=user[0].branch) | Q(description__icontains=user[0].branch) | Q(category__icontains=user[0].interests)
-
-        books = Books.objects.filter(lookups)
-        serialize = BooksSerializer(books,many=true)
+        books = Books.objects.all()
+        sorted_books = recommend(books,userid)
+        serialize = BooksSerializer(sorted_books,many=true)
         return Response(serialize.data)
 
 class FetchBookDetails(APIView):
