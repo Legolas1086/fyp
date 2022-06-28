@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ReactDOM} from "react";
 import Nav from "./nav.js";
-import styles from './css/dash.css';
+import styles from './css/mybooks.css';
 import { Link,Navigate } from "react-router-dom";
 import bookimage from "./images/bookimage.jpg";
 import axios from "axios";
@@ -47,7 +47,7 @@ class MyBooks extends React.Component{
             
             <div className="dashboard-outer">
                 <Nav/>
-                <div className="dash-body">
+                <div className="dash-body" style={{marginTop:"5rem"}}>
                 {this.state.isloading?<h1>Please wait ...</h1>:
                    this.state.data.map((book)=>
                 

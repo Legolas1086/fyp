@@ -28,7 +28,7 @@ class Chat extends React.Component{
         this.fetchData(); 
         setInterval(() => {
             this.fetchData(); 
-        }, 5000);
+        }, 1000);
              
     }
 
