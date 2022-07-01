@@ -24,9 +24,12 @@ const Details=(props)=>{
         .then(res=>setData(res[0]))
         .then(console.log(data.image))
         console.log(data.image)
+
     },[location,state,data]);
 
-
+    function handleClick(){
+        localStorage.setItem('senderid',data.sellerid)
+    }
     
         return(
             <div className="details-outer">
@@ -44,7 +47,7 @@ const Details=(props)=>{
                       <br/>
                       <h4>Rs.{data.cost}</h4>
                       <p>Owned by : {data.sellerid}</p>
-                      <Link to="/chat" state={{senderid:data.sellerid}}>contact seller</Link>
+                      <Link to="/chat" onClick={handleClick()}>contact seller</Link>
                   </div>
               </div>
             </div>

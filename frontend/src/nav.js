@@ -11,7 +11,8 @@ function Nav(){
                <span><Link to="/" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}}>Dashboard</Link></span>
                <span><Link to="/post" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}}>sell</Link></span>
                <span><Link to="/mybooks" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}}>MyBooks</Link></span>
-               <span><Link to="/login" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}}>login</Link></span>
+               <span><Link to="/chat" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}}>Chat</Link></span>
+               <span><Link to="/chat" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}}>Chat</Link></span>
             </div>
         </nav>
     )

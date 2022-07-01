@@ -1,17 +1,21 @@
+from audioop import reverse
 from re import L
+from django.dispatch import receiver
 from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 from django.forms.models import model_to_dict
 from sqlalchemy import false, null, true
 from yaml import serialize
 from .models import Books, Users, chatHistory
+from rest_framework import serializers
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
-from .serializer import UserSerializer,BooksSerializer, chatHistorySerializer
+from .serializer import UserSerializer,BooksSerializer, chatHistorySerializer,getUsersChatSerializer
 from rest_framework import status
 from django.db.models import Q
 from .recomendation import sendMail,recommend
+from django.core import serializers as core_serializers
 
 class RegisterUser(APIView):
     parser_classes = (MultiPartParser, FormParser)
@@ -125,3 +129,27 @@ class EditBook(APIView):
         #object = Books.objects.get(isbn=isbn)
         #object.price = price
         #object.sold = sold
+
+
+class getUsersChat(APIView):
+    def get(self,request):
+        id = int(request.query_params['id'])
+        all_users = Users.objects.all().only('id','username')
+        parameter = Q(sender=id)|Q(receiver=id)
+        chats = chatHistory.objects.filter(parameter).order_by('-timestamp')
+        senders = []
+        for i in chats:
+            if id != int(i.sender.id):
+                if not any(d['id'] == i.sender.id for d in senders):
+                    senders.append({'id':i.sender.id,'username':i.sender.username})
+            else:
+                if not any(d['id'] == i.receiver.id for d in senders):
+                    senders.append({'id':i.receiver.id,'username':i.receiver.username})
+            
+        print(senders)
+        res = {}
+        res['all_users']=all_users
+        res['senders']=senders
+        serialize = getUsersChatSerializer(senders,many=true)
+        return Response(serialize.data)
+    
