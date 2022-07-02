@@ -5,10 +5,12 @@ import styles from './css/dash.css';
 import { Link,Navigate } from "react-router-dom";
 import bookimage from "./images/bookimage.jpg";
 import axios from "axios";
+import {AuthContext} from "./context"
 
 
 
 class Dashboard extends React.Component{
+    static contextType = AuthContext;
     state = {
         isloading:true,
         data:[],
@@ -27,10 +29,11 @@ class Dashboard extends React.Component{
                     return res})
             .then((res) => {this.setState({data:res})})
             .then(this.setState({isloading:false}))
-    
+        
     }
 
     componentWillMount(){
+        console.log(this.context)
         const loggedid = localStorage.getItem('id')
         this.setState({ islogged: loggedid }, () => {
             this.fetchData("http://127.0.0.1:8000/books/",{'id':this.state.islogged});
@@ -40,6 +43,7 @@ class Dashboard extends React.Component{
     }
 
     handleChange=(event)=>{
+        console.log(this.context)
         this.setState({input:event.target.value})
     }
 

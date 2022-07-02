@@ -1,55 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ReactDOM } from "react";
 import { Link } from "react-router-dom";
 import avatar from "./images/avatar.svg";
 import axios from 'axios';
 import { Navigate } from "react-router-dom";
 import Nav from "./nav";
+import {AuthContext} from "./context";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
-class Login extends React.Component{
+function Login (){
+    const navigate = useNavigate();
+    const context = useContext(AuthContext);
+    const [email,setEmail] = useState("");
+    const [password,setPassword] = useState("");
     
-    state={
-            password:"g",
-            email:"",
-        }
-    
-        onChange=(event)=>{
-            this.setState({[event.target.name]:event.target.value})
-        }
+    function onEmailChange(event){
+        setEmail(event.target.value)
+    }
+    function onPasswordChange(event){
+        setPassword(event.target.value)
+    }
 
-    handleSubmit = (event)=>{    
-        console.log(this.state.password)
+    
+   
+
+    function handleSubmit(event){    
+
+        event.preventDefault();
+        const {id,login,logout} = context
+        console.log(password)
         let url = "http://127.0.0.1:8000/authenticate"
-        axios.get(url,{params:{'email':this.state.email,'pass':this.state.password}})
+        axios.get(url,{params:{'email':email,'pass':password}})
         .then(res=>res.data)
         .then(res=>{
-            localStorage.setItem('id',res)})
-    }
-
-    componentDidMount(){
-        fetch("http://127.0.0.1:8000/users/")
-        .then(res=>(res.json()))
-        .then(data=>{this.setState({username:data[0].username})
-        console.log(this.state.username)})
+            login(res)
+            localStorage.setItem('id',res)
+        })
        
+        window.setTimeout(() => {
+            navigate("/")
+        }, 2000)
     }
 
-    render(){
+    
+
+    
      return(
-             <form className="login100-form validate-form" onSubmit={this.handleSubmit}>      
+             <form className="login100-form validate-form" onSubmit={handleSubmit}>      
                     <div className="avatar">
                         <img width="60" src={avatar}/>
                     </div>
 
                     <div className="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                        <input className="input100" autoComplete="off" type="text" name="email" onChange={this.onChange}></input>
+                        <input className="input100" autoComplete="off" type="text" name="email" onChange={onEmailChange}></input>
                         <span className="focus-input100"></span>
                         <span className="label-input100">Email</span>
                     </div>
                     
                     
                     <div className="wrap-input100 validate-input" data-validate="Password is required">
-                        <input className="input100" type="password" name="password" onChange={this.onChange}></input>
+                        <input className="input100" type="password" name="password" onChange={onPasswordChange}></input>
                         <span className="focus-input100"></span>
                         <span className="label-input100">Password</span>
                     </div>
@@ -68,7 +79,7 @@ class Login extends React.Component{
 
                     <div className="container-login100-form-btn">
                         <Link to="/" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}} name = "dashboard">
-                        <button type="submit" className="login100-form-btn" onClick={this.handleSubmit}>
+                        <button type="submit" className="login100-form-btn" onClick={handleSubmit}>
                             Login
                             
                         </button>
@@ -90,7 +101,8 @@ class Login extends React.Component{
                     </div>       
                 </form>
      );
-    }
+    
 }
 
+//Login.contextType = AuthContext;
 export default Login;

@@ -24,12 +24,14 @@ class App extends React.Component {
 
   render(){
     return (
-
+      
       <Router>
+        
         <div>
           <div className="Content">
           
             <Routes>
+              
               <Route exact path="/login" element={<Credential checkLogin={this.callBack}/>} />
               <Route exact path="/register" element={<RegisterUser/>}/>
               <Route exact path="/" element={<Dashboard props={{loggedin:this.state.loggedin}}/>}/>
@@ -38,10 +40,14 @@ class App extends React.Component {
               <Route exact path="/mybooks" element={<MyBooks props={{loggedin:this.state.loggedin}}/>}/>
               <Route exact path="/editbook" element={<EditBook props={{loggedin:this.state.loggedin}}/>}/>
               <Route exact path="/chat" element={<Chat props={{loggedin:this.state.loggedin}}/>}/>
+              
             </Routes>
+            
           </div>
         </div>
+        
     </Router>
+    
     
     );
   }

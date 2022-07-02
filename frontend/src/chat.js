@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Nav from "./nav";
 import styles from "./css/chat.css"
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 class Chat extends React.Component{
     state={
@@ -32,7 +32,7 @@ class Chat extends React.Component{
         .then(console.log(this.state.senders))
     }
     
-    componentDidMount(){
+    componentWillMount(){
         const loggedid = localStorage.getItem('id')
         this.setState({islogged:loggedid})
         if(localStorage.getItem('senderid')){
@@ -81,6 +81,11 @@ class Chat extends React.Component{
     
 
     render(){
+        if(this.state.islogged==0){
+            return(
+                <Navigate to="/login"/>
+            )
+        }
 
         return(
             <div className="chat-outer">
