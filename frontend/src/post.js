@@ -23,8 +23,29 @@ const Post = (props) =>{
         setLog(localStorage.getItem('id'))
     },[log,img,prev]);
 
+    useEffect(()=>{
+        axios.get("https://www.googleapis.com/books/v1/volumes?q=isbn:"+isbn)
+        .then((response) => response.data)
+        .then((res) => {console.log(res.items[0].volumeInfo);
+                return res.items[0].volumeInfo})
+        .then((res)=>{
+            setTitle(res.title)
+            if(res.publisher){
+                setPublisher(res.publisher)
+            }
+            setAuthor(res.authors.toString())
+            setCategory(res.categories.toString())
+            if(res.description){
+                setDescription(res.description)
+            }
+        })
+        
+    },[isbn])
+
     function handleChangeISBN(event){
-        setIsbnb(event.target.value)
+        if(event.target.value.length==10 || event.target.value.length==13){ 
+            setIsbnb(event.target.value) 
+        }
     }
 
     function handleChangeT(event){
@@ -112,11 +133,11 @@ const Post = (props) =>{
                 <div className="post-form">
                     <form onSubmit={handleSubmit}>
                         <input type="text" placeholder="ISBN" onChange={handleChangeISBN} required/>
-                        <input type="text" placeholder="Title" onChange={handleChangeT} required/>
-                        <input type="text" placeholder="Author" onChange={handleChangeA} required/>                    
-                        <input type="text" placeholder="Publisher" onChange={handleChangeP} required/>
-                        <input type="text" placeholder="Category" onChange={handleChangeC} required/>
-                        <textarea rows="5" placeholder="Description" onChange={handleChangeD} required/>
+                        <input type="text" placeholder="Title" value={title} onChange={handleChangeT} required/>
+                        <input type="text" placeholder="Author" value ={author} onChange={handleChangeA} required/>                    
+                        <input type="text" placeholder="Publisher" value = {publisher} onChange={handleChangeP} required/>
+                        <input type="text" placeholder="Category" value = {category} onChange={handleChangeC} required/>
+                        <textarea rows="5" placeholder="Description" value = {description} onChange={handleChangeD} required/>
                         <input type="number" pattern="[0-9]*" placeholder="Price" onChange={handleChangePr} required/>
                         <button type="submit" >submit</button>
 
