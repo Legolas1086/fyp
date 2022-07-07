@@ -40,7 +40,7 @@ function Login (){
        
         window.setTimeout(() => {
             navigate("/")
-        }, 2000)
+        }, 3000)
     }
 
     

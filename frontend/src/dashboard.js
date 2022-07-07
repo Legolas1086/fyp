@@ -10,7 +10,6 @@ import {AuthContext} from "./context"
 
 
 class Dashboard extends React.Component{
-    static contextType = AuthContext;
     state = {
         isloading:true,
         data:[],
@@ -33,7 +32,6 @@ class Dashboard extends React.Component{
     }
 
     componentWillMount(){
-        console.log(this.context)
         const loggedid = localStorage.getItem('id')
         this.setState({ islogged: loggedid }, () => {
             this.fetchData("http://127.0.0.1:8000/books/",{'id':this.state.islogged});
@@ -56,7 +54,7 @@ class Dashboard extends React.Component{
     
 
     render(){
-        if(this.state.loggedid==0){
+        if(this.state.islogged==0){
             return(
                 <Navigate to="/login"/>
             )

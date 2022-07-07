@@ -94,9 +94,15 @@ const Post = (props) =>{
         console.log(img)
         
     }
+
+  
     return(
         
+
         <div className="post-outer">
+            {localStorage.getItem('id')==0 &&
+            <Navigate to="/login"/>
+        }
             <Nav/>
             <div className="post-body">
                 <div className="post-img">

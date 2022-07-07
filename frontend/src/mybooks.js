@@ -37,7 +37,8 @@ class MyBooks extends React.Component{
     
 
     render(){
-        if(this.state.islogged==0){
+        console.log(localStorage.getItem('id'))
+        if(localStorage.getItem('id')==0){
             return(
                 <Navigate to="/login"/>
             )
