@@ -59,7 +59,7 @@ class FetchBooks(APIView):
 
 class FetchBookDetails(APIView):
     def get(self,request):
-        print(request.query_params)
+        print(request.query_params['id'])
         input_isbn=request.query_params['id']
         books = Books.objects.filter(isbn=input_isbn)
         serialize = BooksSerializer(books,many=true)
@@ -122,13 +122,14 @@ class SearchBook(APIView):
         return Response(serialize.data)
 
 class EditBook(APIView):
-    def post(self,request):
-        print(request.POST)
-        #sold = request.POST.get['sold']
-        #isbn = request.POST.get['isbn']
-        #object = Books.objects.get(isbn=isbn)
-        #object.price = price
-        #object.sold = sold
+    def patch(self,request):
+        print(request.data)
+        object = Books.objects.get(isbn=request.data['isbn'])
+        object.cost = request.data['newPrice']
+        object.sold = request.data['sold']
+        object.save()
+        serializer = BooksSerializer(object)
+        return Response(serializer.data)
 
 
 class getUsersChat(APIView):

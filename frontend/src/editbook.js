@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ReactDOM } from "react";
 import Nav from "./nav.js";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import bookimage from "./images/bookimage.jpg";
 import styles from "./css/editbook.css"
 import axios from "axios";
@@ -17,7 +17,13 @@ const EditBook=(props)=>{
     
     const location = useLocation()
    
-
+    function fetchData(){
+      fetch("http://127.0.0.1:8000/bookdetails/?id=".concat(location.state.editid))
+        .then(res=>(res.json()))
+        .then(res=>setData(res[0]))
+        .then(console.log(data.image))
+        console.log(data.image)
+    }
     
     useEffect(()=>{
         setState(location.state.editid)
@@ -37,16 +43,20 @@ const EditBook=(props)=>{
     }
 
     function handleSubmit(event){
-
-        axios.post("http://127.0.0.1:8000/editbook/",{'isbn':state,'newPrice':price,'sold':sold},{
+      event.preventDefault()
+        axios.patch("http://127.0.0.1:8000/editbook/",{'isbn':state,'newPrice':price,'sold':sold},{
             headers: {
                 'content-type': 'application/json',
             }
           }).then(res => {
-            console.log(res.data);
+            console.log(res);
           })
           .catch(err => console.log(err))
       .catch(err => console.log(err))
+      
+      
+      document.getElementById("form").reset()
+     
     }
     
         return(
@@ -65,7 +75,7 @@ const EditBook=(props)=>{
                       <br/>
                       <h4>Rs.{data.cost}</h4>
                       <p>Owned by : {data.sellerid}</p>
-                      <form className="editbook-form" onSubmit={handleSubmit}>
+                      <form className="editbook-form" id="form" onSubmit={handleSubmit}>
                         <input type="number" placeholder="New Price" className="newprice" onChange={handleChangePrice}/>
                         <label className="checkbox"><input className = "check-box-input" type = "checkbox" onChange={handleChangeSold}/>Sold</label>
                         <button className= "submit-button" type = "submit">submit</button>
