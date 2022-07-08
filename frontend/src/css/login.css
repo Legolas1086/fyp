@@ -35,6 +35,10 @@ a:hover {
   color: #6675df;
 }
 
+a:active {
+  background-color: #bbb;
+}
+
 
 .txt1 {
   font-family: 'Lexend', sans-serif;

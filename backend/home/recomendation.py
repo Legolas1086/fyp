@@ -102,6 +102,7 @@ def recommend(books,id):
     recommend_list = []
     nltk.download('stopwords')
     features = bookCleaner(books)
+    print(features)
     cosine_similarities = profileBasedRecommendation(books,features,user[0])
     print(cosine_similarities)
     sorted_books = [x for _,x in sorted(zip(cosine_similarities,books),reverse=True, key = lambda x: x[0])]

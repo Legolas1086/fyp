@@ -10,18 +10,22 @@
     display: flex;
     width: 100%;
     flex-direction: row;
-    width:SCREEN_WIDTH;
-    margin-top: 1rem;   
+    width:SCREEN_WIDTH;  
     flex-wrap: wrap;
-    color:white
+    color:white;
+    justify-content: start;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .content-card{
-    background-color: white;
-    margin-top: 2%;
-    margin-left:7rem;
-    flex-wrap: wrap;
+    background-color: #e8e8e4;
     max-width: 250px;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 10px;
+    margin: 2rem;
+    padding: 1rem;
 }
 
 
@@ -32,25 +36,28 @@ h4{
     white-space: break-spaces
 }
 
-.search-form{
-    margin-top: 5rem;
-    margin-left: 25%;
+.search-bar{
+    margin-top: 7rem;
     display: flex;
     flex-direction: row;
-}
-
-.search-form>button{
-    margin-left:5%;
-    margin-top: 2%;
-    background-color:blue;
-    color:white;
+    align-items: end;
+    justify-content: center;
 }
 
 .input1:focus{
     border-color: blue;
 }
 
+.search-bar-input{
+    max-width: 40rem;
+    margin-right: 0.3rem;}
 
 
+.card-image:hover{
+    opacity: 0.8;
+    transform: scale(1.05);
+}
 
-
+.card-image{
+    transition: transform .2s;
+}

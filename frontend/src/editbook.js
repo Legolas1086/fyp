@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import bookimage from "./images/bookimage.jpg";
 import styles from "./css/editbook.css"
 import axios from "axios";
+import {Form ,FormControl,Button } from 'react-bootstrap';
 
 
 
@@ -37,7 +38,7 @@ const EditBook=(props)=>{
     }
 
     function handleSubmit(event){
-
+        console.log("appi")
         axios.post("http://127.0.0.1:8000/editbook/",{'isbn':state,'newPrice':price,'sold':sold},{
             headers: {
                 'content-type': 'application/json',
@@ -52,7 +53,7 @@ const EditBook=(props)=>{
         return(
             <div className="details-outer">
                 <Nav/>
-              <div className="details-body">
+              <div className="details-body-top" style={{minHeight:"89vh"}}>
                   <div className="details-img">
                     <img src = {"http://127.0.0.1:8000".concat(data.image)}></img>
                   </div>
@@ -64,12 +65,9 @@ const EditBook=(props)=>{
                       <br/>
                       <br/>
                       <h4>Rs.{data.cost}</h4>
-                      <p>Owned by : {data.sellerid}</p>
-                      <form className="editbook-form" onSubmit={handleSubmit}>
                         <input type="number" placeholder="New Price" className="newprice" onChange={handleChangePrice}/>
                         <label className="checkbox"><input className = "check-box-input" type = "checkbox" onChange={handleChangeSold}/>Sold</label>
-                        <button className= "submit-button" type = "submit">submit</button>
-                      </form>
+                        <Button variant="primary" type="submit" onClick={handleSubmit} className="submit-but">Update</Button>
                   </div>
               </div>
             </div>

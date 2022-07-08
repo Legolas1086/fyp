@@ -98,13 +98,15 @@ const Post = (props) =>{
         
         <div className="post-outer">
             <Nav/>
+            <div className="post-container">
+            <h1 style={{color:"#000"}}>Create Ad</h1>
             <div className="post-body">
                 <div className="post-img">
                     <img src={prev}/>
                     <input type="file" id="image" accept="image/*" onChange={handleImage} required/>
                 </div>
                 <div className="post-form">
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} className="form-style">
                         <input type="text" placeholder="ISBN" onChange={handleChangeISBN} required/>
                         <input type="text" placeholder="Title" onChange={handleChangeT} required/>
                         <input type="text" placeholder="Author" onChange={handleChangeA} required/>                    
@@ -119,6 +121,7 @@ const Post = (props) =>{
                 
             </div>
            
+        </div>
         </div>   
             
             

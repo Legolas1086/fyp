@@ -61,6 +61,13 @@ class FetchBookDetails(APIView):
         serialize = BooksSerializer(books,many=true)
         return Response(serialize.data)
 
+class FetchSimilarBook(APIView):
+    def get(self,request):
+        books= Books.objects.all()
+        serialize = BooksSerializer(books,many=true)
+        return Response(serialize.data)
+    pass
+
 class PostBook(APIView):
     parser_classes = (MultiPartParser, FormParser)
 

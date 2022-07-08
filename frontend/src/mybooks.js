@@ -47,14 +47,15 @@ class MyBooks extends React.Component{
             
             <div className="dashboard-outer">
                 <Nav/>
+                <div style={{minHeight:"89vh"}}>
                 <div className="dash-body" style={{marginTop:"5rem"}}>
                 {this.state.isloading?<h1>Please wait ...</h1>:
                    this.state.data.map((book)=>
                 
                    <div className="content-card">
                         <Link to="/editbook" state={{editid:book.isbn}}>
-                           <img id = {book.id} src={"http://127.0.0.1:8000".concat(book.image)} style={{width:"250px",height:"300px"}}></img>
-                           <h4>{book.bookname}</h4>
+                           <img id = {book.id} src={"http://127.0.0.1:8000".concat(book.image)} style={{width:"200px",height:"240px",paddingBottom:"0.5rem"}}></img>
+                           <p style={{width:"200px",color:"000",fontWeight:"600"}}>{book.bookname}</p>
                     
                         </Link>
                        
@@ -65,6 +66,7 @@ class MyBooks extends React.Component{
                     )
                 }
                 
+                </div>
                 </div>
             </div>
             

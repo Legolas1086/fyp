@@ -5,7 +5,9 @@ import styles from './css/dash.css';
 import { Link,Navigate } from "react-router-dom";
 import bookimage from "./images/bookimage.jpg";
 import axios from "axios";
-
+import DonorHomePage from "./card.js";
+import {Form ,FormControl,Button } from 'react-bootstrap';
+import { MDBInput } from 'mdb-react-ui-kit';
 
 
 class Dashboard extends React.Component{
@@ -62,23 +64,25 @@ class Dashboard extends React.Component{
             
             <div className="dashboard-outer">
                 <Nav/>
-                <form className="search-form" onSubmit={this.handleSubmit}>
-                    <input className="input1" type="text" placeholder="search" onChange={this.handleChange}/>
-                    <button type="submit">search</button>
+                <div style={{minHeight:"89vh"}}>
+                <form className="search-bar" onSubmit={this.handleSubmit}>
+                <Form.Control type="text" placeholder="Search for books" onChange={this.handleChange} className="search-bar-input"/>
+                    <Button variant="primary" type="submit">Search</Button>
                 </form>
-                <div className="dash-body">
+                      <div className="dash-body">
 
                    {this.state.data.map((book)=>
                 
                    <div className="content-card">
+                   <div style={{padding:"1 1.5rem", color:"#000"}}>
                         <Link to="/details" state={{idDetails:book.isbn}}>
-                           <img id = {book.id} src={"http://127.0.0.1:8000".concat(book.image)} style={{width:"250px",height:"300px"}}></img>
-                           <h3>{book.bookname}</h3>
+                           <img id = {book.id} src={"http://127.0.0.1:8000".concat(book.image)} style={{width:"200px",height:"240px",paddingBottom:"0.5rem"}} className='card-image'></img>
+                           <p style={{width:"200px",color:"000",fontWeight:"600"}}>{book.bookname}</p>
                         </Link>
+                        <div style={{color:"#000", fontWeight:"600"}}>&#x20A8; {book.cost}</div>
+                    </div>
                        
-                    
-
-                   </div>
+                    </div>
                
                     )
                 }
@@ -86,6 +90,8 @@ class Dashboard extends React.Component{
                 </div>
             </div>
             
+            </div>
+
             </div>
             
         

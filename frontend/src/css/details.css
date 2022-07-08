@@ -2,23 +2,18 @@
     display: flex;
     flex-direction: column;
 }
-
-.details-body{
-    margin-top: 10rem;
+ 
+.details-body-top{
+    padding-top: 10rem;
     display: flex;
     flex-direction: row;
     width:100%;
-   
+    justify-content: center;
+    background-color: lavender;
+    padding-bottom: 3rem;   
 }
 
-.details-img{
-    margin-left: 10%;
-}
 
-.details-img>img{
-    width:30rem;
-    height:40rem;
-}
 
 .book-details{
     margin-left: 10rem;
@@ -26,5 +21,18 @@
     flex-direction: column;
 }
 
+.details-box{
+   display: flex;
+}
 
-
+.dash-body-details{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    width:SCREEN_WIDTH;  
+    flex-wrap: wrap;
+    color:white;
+    justify-content: start;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}

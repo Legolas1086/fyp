@@ -5,17 +5,22 @@
 }
 
 .post-body{
-    margin-top: 8rem;
     display: flex;
     flex-direction: row;
-    width:100%;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 4rem;
+    margin-bottom: 2rem;
    
+}
+
+.post-container{
+    margin-top: 8rem;
 }
 
 .post-img{
     display: flex;
     flex-direction: column;
-    margin-left: 10%;
 }
 
 .post-img>img{
@@ -24,15 +29,14 @@
 }
 
 .post-form{
-    margin-left: 8rem;
 }
 
-form{
+.form-style{
     display: flex;
     flex-direction: column;
 }
 
-form>input{
+.form-style>input{
     margin-top: 2rem;
     width:50rem;
     height:3rem;
@@ -42,7 +46,7 @@ form>input{
     padding: 1rem;
 }
 
-form>textarea{
+.form-style>textarea{
     margin-top: 2rem;
     width:50rem;
     height:10rem;
@@ -53,7 +57,7 @@ form>textarea{
     padding: 1rem;
 }
 
-form>button{
+.form-style>button{
     width:5rem;
     height:3rem;
     margin-top: 1rem;
@@ -75,3 +79,4 @@ img{
 
 
 
+ 

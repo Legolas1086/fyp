@@ -11,6 +11,7 @@ import RegisterUser from './registerUser.js';
 import MyBooks from './mybooks';
 import EditBook from './editbook';
 import Chat from './chat';
+import Footer from './footer'
 
 class App extends React.Component {
   state={
@@ -26,7 +27,6 @@ class App extends React.Component {
     return (
 
       <Router>
-        <div>
           <div className="Content">
           
             <Routes>
@@ -40,7 +40,7 @@ class App extends React.Component {
               <Route exact path="/chat" element={<Chat props={{loggedin:this.state.loggedin}}/>}/>
             </Routes>
           </div>
-        </div>
+          <Footer/>
     </Router>
     
     );

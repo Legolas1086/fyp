@@ -6,27 +6,6 @@
     flex-direction: column;
 }
 
-.dash-body{
-    margin-top: 40px;
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    width:SCREEN_WIDTH;
-    margin-top: 1rem;   
-    flex-wrap: wrap;
-    color:white;
-}
-
-.content-card{
-    background-color: white;
-    margin-top: 2%;
-    margin-left:7rem;
-    flex-wrap: wrap;
-    max-width: 250px;
-}
-
-
-
 h4{
     text-decoration: none;
     color: black;
