@@ -15,3 +15,8 @@ class chatHistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = chatHistory
         fields = '__all__'
+
+class getUsersChatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Users
+        fields = ['id','username']

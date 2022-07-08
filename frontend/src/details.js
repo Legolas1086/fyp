@@ -36,6 +36,10 @@ const Details=(props)=>{
 
 similarbook.map(siri=>console.log(siri))
 
+
+    function handleClick(){
+        localStorage.setItem('senderid',data.sellerid)
+    }
     
         return(
             <>
@@ -55,7 +59,7 @@ similarbook.map(siri=>console.log(siri))
                       <br/>
                       <h4>Rs.{data.cost}</h4>
                       <p>Owned by : {data.sellerid}</p>
-                      <Link to="/chat" state={{senderid:data.sellerid}}><Button variant="primary" type="submit">contact seller&nbsp;<FaComment /></Button></Link>
+                      <Link to="/chat" state={{senderid:data.sellerid}} onClick={handleClick()}><Button variant="primary" type="submit">contact seller&nbsp;<FaComment /></Button></Link>
                   </div>
               </div>
               </div>

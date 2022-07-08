@@ -18,7 +18,7 @@ class MyBooks extends React.Component{
 
     
     
-    componentDidMount(){
+    componentWillMount(){
         const loggedid = localStorage.getItem('id')
         this.setState({ islogged: loggedid }, () => {
             console.log(this.state.islogged);
@@ -37,7 +37,8 @@ class MyBooks extends React.Component{
     
 
     render(){
-        if(this.state.loggedid==0){
+        console.log(localStorage.getItem('id'))
+        if(localStorage.getItem('id')==0){
             return(
                 <Navigate to="/login"/>
             )

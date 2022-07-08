@@ -8,6 +8,7 @@ import axios from "axios";
 import DonorHomePage from "./card.js";
 import {Form ,FormControl,Button } from 'react-bootstrap';
 import { MDBInput } from 'mdb-react-ui-kit';
+import {AuthContext} from "./context"
 
 
 class Dashboard extends React.Component{
@@ -29,7 +30,7 @@ class Dashboard extends React.Component{
                     return res})
             .then((res) => {this.setState({data:res})})
             .then(this.setState({isloading:false}))
-    
+        
     }
 
     componentWillMount(){
@@ -42,6 +43,7 @@ class Dashboard extends React.Component{
     }
 
     handleChange=(event)=>{
+        console.log(this.context)
         this.setState({input:event.target.value})
     }
 
@@ -54,7 +56,7 @@ class Dashboard extends React.Component{
     
 
     render(){
-        if(this.state.loggedid==0){
+        if(this.state.islogged==0){
             return(
                 <Navigate to="/login"/>
             )
