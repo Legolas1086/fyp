@@ -11,21 +11,27 @@ import { Link } from "react-router-dom";
 const Details=(props)=>{
     const [state,setState] = useState("1")
     const [data,setData] = useState({})
+    const [similarbooks,setSimilarBooks] = useState()
 
     
     const location = useLocation()
-    
+        
+
+   
     useEffect(()=>{
         setState(location.state.idDetails)
-        console.log(state)
-        fetch("http://127.0.0.1:8000/bookdetails/?id=".concat(state))
+        fetch("http://127.0.0.1:8000/bookdetails/?id=".concat(location.state.idDetails))
 
         .then(res=>(res.json()))
         .then(res=>setData(res[0]))
-        .then(console.log(data.image))
-        console.log(data.image)
 
-    },[location,state,data]);
+        console.log(location.state.idDetails)
+        fetch("http://127.0.0.1:8000/similarbooks/?id=".concat(location.state.idDetails))
+        .then(res=>(res.json()))
+        .then(res=>console.log(res))
+    },[state,location.state.idDetails]);
+
+
 
     function handleClick(){
         localStorage.setItem('senderid',data.sellerid)
