@@ -1,4 +1,5 @@
 from audioop import reverse
+import profile
 from re import L
 from django.dispatch import receiver
 from django.shortcuts import render
@@ -163,3 +164,33 @@ class similarBooks(APIView):
         serialize = BooksSerializer(similarBooks,many=true)
         return Response(serialize.data)
 
+class Profile(APIView):
+    def get(self,request):
+        profile = Users.objects.filter(id=request.query_params['id'])
+        print(profile)
+        serialize = UserSerializer(profile,many=true)
+        return Response(serialize.data)
+
+class Wishlist(APIView):
+    def patch(self,request):
+        user = Users.objects.get(id=request.data['id'])
+        print(user)
+        user.wishlist = user.wishlist+" "+request.data['bookid']
+        user.save()
+        serialize = UserSerializer(user)
+        return Response(serialize.data)
+    
+    
+        
+class getWishlist(APIView):
+    def get(self,request):
+        user = Users.objects.get(id=request.query_params['id'])
+        wishlist = user.wishlist.split(" ")
+        #wishlist.pop(0)
+        print(wishlist)
+        wishBooks = []
+        if len(wishlist)>0:
+            for i in wishlist:
+                wishBooks.append(Books.objects.get(isbn = i))
+        serialize = BooksSerializer(wishBooks,many=true)
+        return Response(serialize.data)
