@@ -15,7 +15,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from .serializer import UserSerializer,BooksSerializer, chatHistorySerializer,getUsersChatSerializer
 from rest_framework import status
 from django.db.models import Q
-from .recomendation import sendMail,recommend
+from .recomendation import sendMail,recommend,getSimilarBooks
 from django.core import serializers as core_serializers
 
 class RegisterUser(APIView):
@@ -166,7 +166,45 @@ class Profile(APIView):
         return Response(serialize.data)
 
 
+class similarBooks(APIView):
+    def get(self,request):
+        bookid = request.query_params['id']
+        book = Books.objects.filter(isbn=bookid)
+        similarBooks = getSimilarBooks(book[0],bookid)
+        print(similarBooks)
+        serialize = BooksSerializer(similarBooks,many=true)
+        return Response(serialize.data)
+
+class Profile(APIView):
+    def get(self,request):
+        profile = Users.objects.filter(id=request.query_params['id'])
+        print(profile)
+        serialize = UserSerializer(profile,many=true)
+        return Response(serialize.data)
+
+class Wishlist(APIView):
+    def patch(self,request):
+        user = Users.objects.get(id=request.data['id'])
+        print(user)
+        user.wishlist = user.wishlist+" "+request.data['bookid']
+        user.save()
+        serialize = UserSerializer(user)
+        return Response(serialize.data)
     
     
+        
+class getWishlist(APIView):
+    def get(self,request):
+        user = Users.objects.get(id=request.query_params['id'])
+        wishlist = user.wishlist.split(" ")
+        wishlist.pop(0)
+        print(wishlist)
+        wishBooks = []
+        if len(wishlist)>0:
+            for i in wishlist:
+                wishBooks.append(Books.objects.get(isbn = i))
+        serialize = BooksSerializer(wishBooks,many=true)
+        return Response(serialize.data)
+
         
 
