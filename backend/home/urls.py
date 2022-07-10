@@ -1,7 +1,6 @@
 from xml.etree.ElementInclude import include
 from django.urls import path
-from .views import FetchUser,FetchBookDetails,FetchBooks,getWishlist,PostBook,RegisterUser,Wishlist,Profile,Authenticate,MyBooks,displayChat,SearchBook,postChat,EditBook,getUsersChat,similarBooks
-from rest_framework import routers
+from .views import FetchUser,FetchBookDetails,FetchBooks,PostBook,RegisterUser,Authenticate,MyBooks,displayChat,SearchBook,postChat,EditBook,getUsersChat
 
 
 
