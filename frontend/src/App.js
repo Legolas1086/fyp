@@ -41,7 +41,7 @@ class App extends React.Component {
               <Route exact path="/mybooks" element={<MyBooks props={{loggedin:this.state.loggedin}}/>}/>
               <Route exact path="/editbook" element={<EditBook props={{loggedin:this.state.loggedin}}/>}/>
               <Route exact path="/chat" element={<Chat props={{loggedin:this.state.loggedin}}/>}/>
-              <Route exact path="/myprofile" element={<MyProfile/>}/>
+             
               
             </Routes>
             
