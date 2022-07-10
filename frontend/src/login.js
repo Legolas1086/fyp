@@ -8,6 +8,14 @@ import Nav from "./nav";
 import {AuthContext} from "./context";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  MDBInput,
+  MDBCol,
+  MDBRow,
+  MDBCheckbox,
+  MDBBtn
+} from 'mdb-react-ui-kit';
+import {Form,Button} from 'react-bootstrap';
 
 function Login (){
     const navigate = useNavigate();
@@ -47,37 +55,23 @@ function Login (){
 
     
      return(
-             <form className="login100-form validate-form" onSubmit={handleSubmit}>      
-                    <div className="avatar">
-                        <img width="60" src={avatar}/>
-                    </div>
+             <Form onSubmit={handleSubmit}>
+             <div className="avatar">
+                    <img width="60" src={avatar}/>
+             </div>
+  <Form.Group className="mb-3" controlId="formBasicEmail">
+    <Form.Label>Email address</Form.Label>
+    <Form.Control type="email" placeholder="Enter email" onChange={onEmailChange}/>
+    <Form.Text className="text-muted">
+      We'll never share your email with anyone else.
+    </Form.Text>
+  </Form.Group>
 
-                    <div className="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                        <input className="input100" autoComplete="off" type="text" name="email" onChange={onEmailChange}></input>
-                        <span className="focus-input100"></span>
-                        <span className="label-input100">Email</span>
-                    </div>
-                    
-                    
-                    <div className="wrap-input100 validate-input" data-validate="Password is required">
-                        <input className="input100" type="password" name="password" onChange={onPasswordChange}></input>
-                        <span className="focus-input100"></span>
-                        <span className="label-input100">Password</span>
-                    </div>
-
-                    
-
-                    <div className="flex-sb-m w-full p-t-3 p-b-32">
-
-                        <div className="forgot-password">
-                            <a href="#" className="txt1">
-                                Forgot Password?
-                            </a>
-                        </div>
-                    </div>
-            
-
-                    <div className="container-login100-form-btn">
+  <Form.Group className="mb-3" controlId="formBasicPassword">
+    <Form.Label>Password</Form.Label>
+    <Form.Control type="password" placeholder="Password" onChange={onPasswordChange} />
+  </Form.Group>
+                    <div className="container-login100-form-btn register-but">
                         <Link to="/" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}} name = "dashboard">
                         <button type="submit" className="login100-form-btn" onClick={handleSubmit}>
                             Login
@@ -88,18 +82,18 @@ function Login (){
 
                     <div className="text-center p-t-46 p-b-20">
                         <span className="txt2">
-                            haven't registered with us ?
+                            Haven't registered with us ?
                         </span>
                     </div>
     
-                    <div className="container-login100-form-btn">
+                    <div className="container-login100-form-btn register-but">
                         <Link to="/register" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}} >
                         <button  className="login100-form-btn">
                             Register
                         </button>
                         </Link>
-                    </div>       
-                </form>
+                    </div>
+</Form>
      );
     
 }

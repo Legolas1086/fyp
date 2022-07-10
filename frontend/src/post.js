@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { ReactDOM } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate,useNavigate } from "react-router-dom";
 import Nav from "./nav";
 import styles from "./css/post.css"
 import image from "./images/upload.png"
-import axios from 'axios'
+import axios from 'axios';
+import {Button } from 'react-bootstrap';
 
 
 const Post = (props) =>{
@@ -72,6 +73,8 @@ const Post = (props) =>{
         setCost(event.target.value)
     }
 
+    const navi=useNavigate();
+
     function handleSubmit(event){
         event.preventDefault();
         console.log(title,author,cost,publisher,category,description)
@@ -95,6 +98,7 @@ const Post = (props) =>{
           })
               .then(res => {
                 console.log(res.data);
+                navi("/")
               })
               .catch(err => console.log(err))
         
@@ -130,6 +134,7 @@ const Post = (props) =>{
             <div className="post-body">
                 <div className="post-img">
                     <img src={prev}/>
+                    <br/>
                     <input type="file" id="image" accept="image/*" onChange={handleImage} required/>
                 </div>
                 <div className="post-form">
@@ -141,7 +146,7 @@ const Post = (props) =>{
                         <input type="text" placeholder="Category" value = {category} onChange={handleChangeC} required/>
                         <textarea rows="5" placeholder="Description" value = {description} onChange={handleChangeD} required/>
                         <input type="number" pattern="[0-9]*" placeholder="Price" onChange={handleChangePr} required/>
-                        <button type="submit" >submit</button>
+                        <Button variant="primary" type="submit">Post</Button>
 
                     </form>
                 </div>

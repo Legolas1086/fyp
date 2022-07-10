@@ -11,13 +11,11 @@ const Credential=()=>{
         return(
         <div className="OuterContainer">
             <div className="limiter">
-            <div className="container-login">
             <div className="wrap-login">
                <Login navigation={navigation}/>
                 <div className="login100-more">
                 </div>
             </div>
-         </div>
          </div>
 
     

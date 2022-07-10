@@ -58,7 +58,6 @@ similarbook.map(siri=>console.log(siri))
                       <br/>
                       <br/>
                       <h4>Rs.{data.cost}</h4>
-                      <p>Owned by : {data.sellerid}</p>
                       <Link to="/chat" state={{senderid:data.sellerid}} onClick={handleClick()}><Button variant="primary" type="submit">contact seller&nbsp;<FaComment /></Button></Link>
                   </div>
               </div>

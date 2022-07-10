@@ -90,9 +90,10 @@ class Chat extends React.Component{
         return(
             <div className="chat-outer">
                 <Nav/>
+                <div className="MyBooks-container">
                 <div className="chat-body" >
                     
-                    <div className="chat-box" style={{marginLeft:"30rem",marginTop:"10rem",width:"70rem",height:"40rem",}}>
+                    <div className="chat-box">
                         <div className="chat-left">
                             <div className="user-search">
                                 <form className="user-search-form">
@@ -111,16 +112,16 @@ class Chat extends React.Component{
                             <div className="sender-box" style={{marginTop:"0"}}>
                                 <h2>{this.state.sender}</h2>
                             </div>
-                            <div className="chat-history" style={{height:"30rem"}}>
+                            <div className="chat-history">
                                 {this.state.messages.map((chat)=>
                             
-                            
-                                <div className="chat-message" style={{marginLeft:chat.sender==this.state.islogged?"25rem":"1rem",backgroundColor:chat.sender==this.state.islogged?"blue":"gray"}}>
-                                    <p className="chat-message-timestamp">{chat.timestamp}</p>
+                                <div className="chat-message-cont" style={{justifyContent:chat.sender==this.state.islogged?"end":"start"}}>
+                                <div className="chat-message" className={chat.sender==this.state.islogged?"right-chat":"left-chat"}>
+                                    <p className="chat-message-timestamp">{chat.timestamp.slice(0,19)}</p>
                                     <p className="chat-message-message">{chat.message}</p>
                                            
                                 </div>
-                           
+                                </div>
                             
                                 )}
                             </div>
@@ -132,6 +133,7 @@ class Chat extends React.Component{
                             </div>
                             </div>
                         </div>
+                    </div>
                     </div>
             </div>
         )

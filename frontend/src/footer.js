@@ -23,7 +23,7 @@ export default function Footer() {
                     </a>
                 </div>
                 <div className='website-rights'>
-                    <small>© Copyright 2022 GEC. All rights reserved.</small>
+                    <small>© Copyright 2022 Pustak Bandaar. All rights reserved.</small>
                 </div>
             </div>
 

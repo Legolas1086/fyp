@@ -6,6 +6,12 @@
     flex-direction: column;
 }
 
+.MyBooks-container{
+    min-height: 89vh;
+    background-color: lavender;
+    text-align: center;
+}
+
 h4{
     text-decoration: none;
     color: black;

@@ -11,7 +11,7 @@ import RegisterUser from './registerUser.js';
 import MyBooks from './mybooks';
 import EditBook from './editbook';
 import Chat from './chat';
-import Footer from './footer'
+import Footer from './footer';
 
 class App extends React.Component {
   state={
@@ -22,6 +22,7 @@ class App extends React.Component {
     this.setState({loggedin:loginData})
     console.log(this.state.loggedin)
   }
+  
 
   render(){
     return (
@@ -33,7 +34,7 @@ class App extends React.Component {
             <Routes>
               
               <Route exact path="/login" element={<Credential checkLogin={this.callBack}/>} />
-              <Route exact path="/registerUser" element={<RegisterUser/>}/>
+              <Route exact path="/register" element={<RegisterUser/>}/>
               <Route exact path="/" element={<Dashboard props={{loggedin:this.state.loggedin}}/>}/>
               <Route exact path="/details" element={<Details props={{loggedin:this.state.loggedin}}/>}/>
               <Route exact path="/post" element={<Post props={{loggedin:this.state.loggedin}}/>}/>
@@ -44,7 +45,7 @@ class App extends React.Component {
             </Routes>
             
           </div>
-          <Footer/>
+          {window.location.pathname != '/login' && window.location.pathname!='/register'?<Footer/>:<div>dummy</div>}
         </div>
     </Router>
     

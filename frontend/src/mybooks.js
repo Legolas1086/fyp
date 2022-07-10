@@ -48,8 +48,11 @@ class MyBooks extends React.Component{
             
             <div className="dashboard-outer">
                 <Nav/>
-                <div style={{minHeight:"89vh"}}>
-                <div className="dash-body" style={{marginTop:"5rem"}}>
+                <div className="MyBooks-container">
+                <div style={{marginTop:"5rem"}}>
+                <br/>
+                <h1 style={{color:"#000"}}>Posted ads</h1>
+                <div className="dash-body">
                 {this.state.isloading?<h1>Please wait ...</h1>:
                    this.state.data.map((book)=>
                 
@@ -70,7 +73,7 @@ class MyBooks extends React.Component{
                 </div>
                 </div>
             </div>
-            
+            </div>
             </div>
             
         

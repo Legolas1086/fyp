@@ -66,7 +66,7 @@ class Dashboard extends React.Component{
             
             <div className="dashboard-outer">
                 <Nav/>
-                <div style={{minHeight:"89vh"}}>
+                <div style={{minHeight:"89vh" , backgroundColor:"lavender"}} >
                 <form className="search-bar" onSubmit={this.handleSubmit}>
                 <Form.Control type="text" placeholder="Search for books" onChange={this.handleChange} className="search-bar-input"/>
                     <Button variant="primary" type="submit">Search</Button>

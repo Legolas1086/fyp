@@ -3,14 +3,22 @@
 	padding: 0px; 
 	box-sizing: border-box;
 }
+.register-but{
+  display: flex;
+  justify-content: center;
+}
 
 .OuterContainer{
-  height: 100%;
-  width: 100%;
-	font-family: 'Lexend', sans-serif;
-  display: flex;
-  flex-direction: row;
-  background-color: black;
+    width: 100%;
+    font-family: 'Lexend', sans-serif;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('../images/back.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 a{
@@ -56,13 +64,11 @@ a:active {
 }
 
 .forgot-password{
-  margin-top: 10%;
-  margin-bottom: 3%;
+    margin: 3%;
 }
 
 .text-center{
-  margin-top: 10%;
-  margin-bottom: 5%;
+    margin: 3% 0;
 }
 
 .imgs{
@@ -86,7 +92,6 @@ a:active {
 }
 .container-login{
   width: 100%;  
-  min-height: 100vh;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -101,15 +106,7 @@ a:active {
 .wrap-login{
   width: 100%;
   background: #fff;
-  overflow: hidden;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  flex-direction: row-reverse;
+padding: 3rem;
 }
 
 .avatar{
@@ -159,11 +156,12 @@ a:active {
 [ Form ]*/
 
 .login100-form {
-  width: 100%;
-  min-height: 100vh;
-  display: block;
-  background-color: #f7f7f7;
-  padding: 35px 55px 55px 55px;
+    width: 100%;
+    min-height: 75vh;
+    display: flex;
+    background-color: #f7f7f7;
+    flex-direction: column;
+    padding: 35px;
 }
 
 .login100-form-title {
@@ -186,15 +184,15 @@ a:active {
   display: -webkit-flex;
   display: -moz-box;
   display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  width: 100%;
-  height: 60px;
-  position: relative;
-  border: 1px solid #e6e6e6;
-  border-radius: 10px;
-  margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    width: 100%;
+    height: 50px;
+    position: relative;
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+    margin-bottom: 10px;
 
 }
 
@@ -317,14 +315,11 @@ input.input100 {
 /*------------------------------------------------------------------
 [ Button ]*/
 .container-login100-form-btn {
-  width: 40rem;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
   display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+    margin: 0 auto;
 }
 
 .login100-form-btn {
@@ -336,7 +331,7 @@ input.input100 {
   justify-content: center;
   align-items: center;
   padding: 0px 20px;
-  width: 40rem;
+  width: 7rem;
   height: 50px;
   border:none;
   border-radius: 10px;
