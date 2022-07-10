@@ -53,7 +53,7 @@ class FetchUser(APIView):
 class FetchBooks(APIView):
     def get(self,request):
         userid = request.query_params['id']
-        books = Books.objects.all()
+        books = Books.objects.filter(~Q(sellerid=userid))
         sorted_books = recommend(books,userid)
         serialize = BooksSerializer(sorted_books,many=true)
         return Response(serialize.data)
@@ -118,7 +118,7 @@ class SearchBook(APIView):
         object = Users.objects.get(id=userid)
         object.searchHistory = object.searchHistory+" "+search_query
         object.save()
-        filter = Q(bookname__icontains=search_query) | Q(author__icontains=search_query) | Q(category__icontains=search_query) | Q(description__icontains=search_query) | Q(category__icontains=search_query)
+        filter = Q(bookname__icontains=search_query) | Q(author__icontains=search_query) 
         books = Books.objects.filter(filter)
         serialize = BooksSerializer(books,many=true)
         return Response(serialize.data)
