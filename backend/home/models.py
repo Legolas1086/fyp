@@ -18,6 +18,7 @@ class Users(models.Model):
     branch = models.CharField(max_length=20)
     interests = models.CharField(max_length=150)
     searchHistory = models.CharField(default=" ",max_length=100000)
+    wishlist = models.CharField(default="",max_length=100000000)
 
 
 class Books(models.Model):
