@@ -13,6 +13,7 @@ function Nav(){
                <span><Link to="/mybooks" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}}>MyBooks</Link></span>
                <span><Link to="/chat" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}}>Chat</Link></span>
                <span><Link to="/login" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}} onClick={()=>localStorage.setItem('id',0)}>Logout</Link></span>
+               <span><Link to="/myprofile" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}}>MyProfile</Link></span>
             </div>
         </nav>
     )
