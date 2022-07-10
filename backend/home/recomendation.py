@@ -102,7 +102,6 @@ def recommend(books,id):
     recommend_list = []
     nltk.download('stopwords')
     features = bookCleaner(books)
-    print(features)
     cosine_similarities = profileBasedRecommendation(books,features,user[0])
     print(cosine_similarities)
     sorted_books = [x for _,x in sorted(zip(cosine_similarities,books),reverse=True, key = lambda x: x[0])]
@@ -122,3 +121,37 @@ def sendMail(book):
     print(emails)
 
     send_mail('Book you were looking for',book['bookname']+'is up for sale, buy it before somebody else does, Regards Pusthak Bandaar',settings.EMAIL_HOST_USER,emails)
+
+
+
+def getSimilarBooks(book,bookid):
+    book_parameters = []
+    book_parameters.append(cleaner(book.description))
+    book_parameters.append(cleaner(book.bookname))
+    book_parameters.append(cleaner(book.author))
+    book_parameters.append(cleaner(book.publisher))
+    book_parameters.append(cleaner(book.category))
+
+
+    books = Books.objects.all()
+    
+
+    recommend_list = []
+    nltk.download('stopwords')
+    features = bookCleaner(books)
+
+    cosine_similarities = []
+
+    for feature in features:
+        tf = TfidfVectorizer(analyzer='word', min_df = 1)
+        feature_matrix = tf.fit_transform(feature)
+        book_matrix = tf.transform(book_parameters)
+        book_similarity = cosine_similarity(feature_matrix,book_matrix)
+        book_similarity = max(book_similarity[:,0])
+        
+        cosine_similarities.append(book_similarity)
+    
+    print(cosine_similarities)
+    sorted_books = [x for _,x in sorted(zip(cosine_similarities,books),reverse=True, key = lambda x: x[0]) if _>0.4]
+    sorted_books = [x for x in sorted_books if x.isbn!=bookid]
+    return sorted_books
