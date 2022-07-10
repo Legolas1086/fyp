@@ -1,4 +1,5 @@
 from audioop import reverse
+import profile
 from re import L
 from django.dispatch import receiver
 from django.shortcuts import render
@@ -65,13 +66,6 @@ class FetchBookDetails(APIView):
         serialize = BooksSerializer(books,many=true)
         return Response(serialize.data)
 
-class FetchSimilarBook(APIView):
-    def get(self,request):
-        books= Books.objects.all()
-        serialize = BooksSerializer(books,many=true)
-        return Response(serialize.data)
-    pass
-
 class PostBook(APIView):
     parser_classes = (MultiPartParser, FormParser)
 
@@ -97,7 +91,8 @@ class displayChat(APIView):
     def get(self,request):
         user1 = request.query_params['user1']
         user2 = request.query_params['user2']
-        lookups = (Q(sender=user1) & Q(receiver=user2)) | (Q(receiver=user1) & Q(sender=user2))
+        print(user1,user2)
+        lookups = (Q(sender=user1) & Q(receiver=user2)) | (Q(sender=user2) & Q(receiver=user1))
         chats = chatHistory.objects.filter(lookups).order_by('timestamp')
         serialize = chatHistorySerializer(chats,many = true)
         return Response(serialize.data)
@@ -160,4 +155,18 @@ class getUsersChat(APIView):
         res['senders']=senders
         serialize = getUsersChatSerializer(senders,many=true)
         return Response(serialize.data)
+
+
+
+class Profile(APIView):
+    def get(self,request):
+        profile = Users.objects.filter(id=request.query_params['id'])
+        print(profile)
+        serialize = UserSerializer(profile,many=true)
+        return Response(serialize.data)
+
+
     
+    
+        
+
