@@ -170,7 +170,7 @@ class similarBooks(APIView):
     def get(self,request):
         bookid = request.query_params['id']
         book = Books.objects.filter(isbn=bookid)
-        similarBooks = getSimilarBooks(book[0],bookid)
+        similarBooks = getSimilarBooks(book[0],bookid,request.query_params['userid'])
         print(similarBooks)
         serialize = BooksSerializer(similarBooks,many=true)
         return Response(serialize.data)

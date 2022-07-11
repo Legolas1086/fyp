@@ -2,7 +2,7 @@ from django.conf import settings
 from .models import Books,Users
 from django.core.mail import send_mail
 from django.conf import settings
-
+from django.db.models import Q
 import pandas as pd
 import numpy as np
 from nltk.corpus import stopwords
@@ -125,7 +125,7 @@ def sendMail(book):
 
 
 
-def getSimilarBooks(book,bookid):
+def getSimilarBooks(book,bookid,userid):
     book_parameters = []
     book_parameters.append(cleaner(book.description))
     book_parameters.append(cleaner(book.bookname))
@@ -134,7 +134,7 @@ def getSimilarBooks(book,bookid):
     book_parameters.append(cleaner(book.category))
 
 
-    books = Books.objects.all()
+    books = Books.objects.filter(~Q(sellerid=userid))
     
 
     recommend_list = []
@@ -153,6 +153,6 @@ def getSimilarBooks(book,bookid):
         cosine_similarities.append(book_similarity)
     
     print(cosine_similarities)
-    sorted_books = [x for _,x in sorted(zip(cosine_similarities,books),reverse=True, key = lambda x: x[0]) if _>0.4]
+    sorted_books = [x for _,x in sorted(zip(cosine_similarities,books),reverse=True, key = lambda x: x[0]) if _>0.25]
     sorted_books = [x for x in sorted_books if x.isbn!=bookid]
     return sorted_books
