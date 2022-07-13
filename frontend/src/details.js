@@ -34,7 +34,9 @@ const Details=(props)=>{
     },[location,state]);    
 
 
-
+   function addLibrary(){
+    axios.patch("http:127.0.0.1:8000/addWish/")
+   }
 
 
     function handleClick(){
@@ -58,7 +60,12 @@ const Details=(props)=>{
                       <br/>
                       <br/>
                       <h4>Rs.{data.cost}</h4>
+                      
+            
                       <Link to="/chat" state={{senderid:data.sellerid}} onClick={handleClick()}><Button variant="primary" type="submit">contact seller&nbsp;<FaComment /></Button></Link>
+                      <br/>
+                      <Button variant="primary" onClick={addLibrary}>Add to Library</Button>
+                      
                   </div>
               </div>
               </div>
