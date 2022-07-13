@@ -7,12 +7,12 @@ from django.http import HttpResponse,JsonResponse
 from django.forms.models import model_to_dict
 from sqlalchemy import false, null, true
 from yaml import serialize
-from .models import Books, Users, chatHistory
+from .models import Books, Users, chatHistory,Keys
 from rest_framework import serializers
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
-from .serializer import UserSerializer,BooksSerializer, chatHistorySerializer,getUsersChatSerializer
+from .serializer import UserSerializer,BooksSerializer, chatHistorySerializer,getUsersChatSerializer, keysSerializer
 from rest_framework import status
 from django.db.models import Q
 from .recomendation import sendMail,recommend,getSimilarBooks
@@ -211,6 +211,17 @@ class getWishlist(APIView):
         print(wishBooks)
         serialize = BooksSerializer(wishBooks,many=true)
         return Response(serialize.data)
+
+class getKeys(APIView):
+    def get(self,request):
+        object = Keys.objects.filter(userid=request.query_params['id'])
+        serializer = keysSerializer(object,many=true)
+        return Response(serializer.data)
+
+class getpublic(APIView):
+    def get(self,request):
+        object = Keys.objects.filter(userid=request.query_params['id'])
+        return Response(object[0].publicKey)
 
         
 

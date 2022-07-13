@@ -10,10 +10,10 @@ from .serializer import keysSerializer
 
 def generateKeys(userid):
     key = RSA.generate(2048)
-    publicKey = open('./publicKey'+str(userid)+'.pem', 'wb')
+    publicKey = open('./publickkeys/publicKey'+str(userid)+'.pem', 'wb')
     publicKey.write(key.publickey().exportKey('PEM'))
     publicKey.close()
-    privateKey = open('./privateKey'+str(userid)+'.pem', 'wb')
+    privateKey = open('./privatekeys/privateKey'+str(userid)+'.pem', 'wb')
     privateKey.write(key.exportKey('PEM'))
     privateKey.close()
     f1 = open('./publicKey'+str(userid)+'.pem','rb')

@@ -49,6 +49,9 @@ function Login (){
             setErrorMessage(false)
             console.log(res)
             localStorage.setItem('id',res)
+            axios.get("http://127.0.0.1:8000/keys/?id=".concat(res))
+            .then(res=>res.data)
+            .then(res=>console.log(res))
             window.setTimeout(() => {
                 navigate("/")
             }, 3000)
