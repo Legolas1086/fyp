@@ -8,6 +8,11 @@ from sqlalchemy import false, true
 
 
 # Create your models here.
+def publicKeyFile(instance,filename):
+    return 'publickeys/{filemame}'.formant(filename=filename)
+
+def privateKeyFile(instance,filename):
+    return 'privatekeys/{filename}'.format(filename=filename)
 
 def upload_to(instance,filename):
     return 'images/{filename}'.format(filename=filename)
@@ -21,6 +26,12 @@ class Users(models.Model):
     interests = models.CharField(max_length=150)
     searchHistory = models.CharField(default=" ",max_length=100000)
     wishlist = models.CharField(default="",max_length=1000000)
+
+class Keys(models.Model):
+    id = models.AutoField(primary_key=True,unique=true)
+    userid = models.ForeignKey(Users,related_name='keysid',on_delete=models.CASCADE)
+    publicKey = models.FileField(publicKeyFile,null=true)
+    privateKey = models.FileField(privateKeyFile,null=true)
 
 
 class Books(models.Model):

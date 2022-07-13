@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Users,Books,chatHistory
+from .models import Users,Books,chatHistory,Keys
 # Register your models here.
 
 class UsersAdmin(admin.ModelAdmin):
@@ -11,6 +11,10 @@ class BooksAdmin(admin.ModelAdmin):
 class chatHistoryAdmin(admin.ModelAdmin):
     list_display = ['chatid','sender','receiver','timestamp','message']
 
+class keysAdmin(admin.ModelAdmin):
+    list_display = ['id','userid','publicKey','privateKey']
+
 admin.site.register(Users,UsersAdmin)
 admin.site.register(Books,BooksAdmin)
 admin.site.register(chatHistory,chatHistoryAdmin)
+admin.site.register(Keys,keysAdmin)

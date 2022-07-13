@@ -16,6 +16,7 @@ from .serializer import UserSerializer,BooksSerializer, chatHistorySerializer,ge
 from rest_framework import status
 from django.db.models import Q
 from .recomendation import sendMail,recommend,getSimilarBooks
+from .rsa import generateKeys
 from django.core import serializers as core_serializers
 
 class RegisterUser(APIView):
@@ -26,6 +27,10 @@ class RegisterUser(APIView):
         posts_serializer = UserSerializer(data=request.data)
         if posts_serializer.is_valid():
             posts_serializer.save()
+            print(request.data['username'])
+            user = Users.objects.filter(username=request.data['username'])
+            user = user[0]
+            generateKeys(user.id)
             return Response(posts_serializer.data, status=status.HTTP_201_CREATED)
         else:
             print('error', posts_serializer.errors)

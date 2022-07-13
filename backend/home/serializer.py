@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Users,Books,chatHistory
+from .models import Keys, Users,Books,chatHistory
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,3 +20,8 @@ class getUsersChatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
         fields = ['id','username']
+
+class keysSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Keys
+        fields = '__all__'
