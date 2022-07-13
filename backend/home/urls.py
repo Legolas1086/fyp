@@ -18,6 +18,6 @@ urlpatterns = [
     path('editbook/',EditBook.as_view()),
     path('getuserschat/',getUsersChat.as_view()),
     path('similarbooks/',similarBooks.as_view()),
-    path('addwish',Wishlist.as_view()),
+    path('addwish/',Wishlist.as_view()),
     
 ]

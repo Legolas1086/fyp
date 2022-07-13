@@ -35,7 +35,15 @@ const Details=(props)=>{
 
 
    function addLibrary(){
-    axios.patch("http:127.0.0.1:8000/addWish/")
+    axios.patch("http://127.0.0.1:8000/addwish/",{'id':localStorage.getItem('id'),'bookid':location.state.idDetails},{
+            headers: {
+                'content-type': 'application/json',
+            }
+          }).then(res => {
+            console.log(res);
+          })
+          .catch(err => console.log(err))
+      .catch(err => console.log(err))
    }
 
 
