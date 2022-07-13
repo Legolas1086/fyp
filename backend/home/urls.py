@@ -1,6 +1,6 @@
 from xml.etree.ElementInclude import include
 from django.urls import path
-from .views import FetchUser,FetchBookDetails,getKeys,getpublic,FetchBooks,PostBook,getWishlist,Profile,Wishlist,RegisterUser,Authenticate,MyBooks,displayChat,SearchBook,postChat,EditBook,getUsersChat, similarBooks
+from .views import FetchUser,FetchBookDetails,getUsername,getKeys,getprivate,getpublic,FetchBooks,PostBook,getWishlist,Profile,Wishlist,RegisterUser,Authenticate,MyBooks,displayChat,SearchBook,postChat,EditBook,getUsersChat, similarBooks
 
 
 
@@ -23,5 +23,6 @@ urlpatterns = [
     path('getwish/',getWishlist.as_view()),
     path('keys/',getKeys.as_view()),
     path('publickey/',getpublic.as_view()),
-    
+    path('privatekey/',getprivate.as_view()),
+    path('getusername/',getUsername.as_view()),
 ]

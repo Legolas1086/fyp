@@ -223,5 +223,15 @@ class getpublic(APIView):
         object = Keys.objects.filter(userid=request.query_params['id'])
         return Response(object[0].publicKey)
 
+class getprivate(APIView):
+    def get(self,request):
+        object = Keys.objects.filter(userid=request.query_params['id'])
+        return (Response(object[0].privateKey))
+
+class getUsername(APIView):
+    def get(self,request):
+        object = Users.objects.filter(id=request.query_params['id'])
+        return Response(object[0].username)
+
         
 

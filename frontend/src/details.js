@@ -8,29 +8,40 @@ import { Link } from "react-router-dom";
 import { FaComment } from 'react-icons/fa';
 import {Form ,FormControl,Button } from 'react-bootstrap';
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 
 const Details=(props)=>{
+    const navigate = useNavigate();
     const [state,setState] = useState("1")
     const [data,setData] = useState({})
+    const [seller,setSeller] = useState("")
 
     const [similarbook,setSimilarBook]=useState([{}])
 
     
     const location = useLocation()
     
+
     useEffect(()=>{
         setState(location.state.idDetails)
         console.log(state)
         fetch("http://127.0.0.1:8000/bookdetails/?id=".concat(location.state.idDetails))
-
         .then(res=>(res.json()))
-        .then(res=>setData(res[0]))
+        .then(res=>{
+            setData(res[0]);
+            axios.get("http://127.0.0.1:8000/getusername/?id=".concat(res[0].sellerid))
+            .then(res=>res.data)
+            .then(res=>localStorage.setItem('sellername',res));
+        }
+            
+            )
         axios.get("http://127.0.0.1:8000/similarbooks/?id=".concat(location.state.idDetails),{params:{'userid':localStorage.getItem('id')}})
         .then(res=>(res.data))
         .then(res=>setSimilarBook(res))
         
+   
     },[location,state]);    
 
 
@@ -47,8 +58,10 @@ const Details=(props)=>{
    }
 
 
-    function handleClick(){
+    function handleClick(event){
+       
         localStorage.setItem('senderid',data.sellerid)
+
     }
     
         return(
@@ -70,7 +83,7 @@ const Details=(props)=>{
                       <h4>Rs.{data.cost}</h4>
                       
             
-                      <Link to="/chat" state={{senderid:data.sellerid}} onClick={handleClick()}><Button variant="primary" type="submit">contact seller&nbsp;<FaComment /></Button></Link>
+                      <Link to="/chat" state={{senderid:data.sellerid,sellername:seller}} onClick={handleClick}><Button variant="primary" type="submit">contact seller&nbsp;<FaComment /></Button></Link>
                       <br/>
                       <Button variant="primary" onClick={addLibrary}>Add to Library</Button>
                       

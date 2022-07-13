@@ -33,13 +33,12 @@ class Chat extends React.Component{
     }
     
     componentWillMount(){
-        axios.get("http://127.0.0.1:8000/publickey/?id=1")
-        .then(res=>res.data)
-        .then(res=>console.log(res))
+
         const loggedid = localStorage.getItem('id')
         this.setState({islogged:loggedid})
         if(localStorage.getItem('senderid')!=0){
-            this.setState({senderid:localStorage.getItem('senderid')})
+            console.log(localStorage.getItem('sendername'))
+            this.setState({senderid:localStorage.getItem('senderid'),sender:localStorage.getItem('sellername')})
         }
         
         console.log(this.state.islogged)
