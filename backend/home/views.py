@@ -203,6 +203,7 @@ class getWishlist(APIView):
         if len(wishlist)>0:
             for i in wishlist:
                 wishBooks.append(Books.objects.get(isbn = i))
+        print(wishBooks)
         serialize = BooksSerializer(wishBooks,many=true)
         return Response(serialize.data)
 
