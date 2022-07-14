@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot testing renders approve the request compnenet 1`] = `
+<DocumentFragment>
+  <div
+    class="d-flex justify-content-around"
+  >
+    <div
+      class="card"
+      style="width: 20rem; height: 16rem;"
+    >
+      <div
+        class="card-body"
+      >
+        <img
+          class="card-img-top"
+          src="Ngo.jpg"
+        />
+        <div
+          class="card-title h5"
+        >
+          NGOs
+        </div>
+      </div>
+      <div
+        class="card-footer"
+      >
+        <a
+          class="card-link"
+          href="/avlngo"
+        >
+          Click here
+        </a>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

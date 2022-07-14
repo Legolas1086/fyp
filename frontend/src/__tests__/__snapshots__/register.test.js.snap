@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot testing renders approve the request compnenet 1`] = `
+<DocumentFragment>
+  <form
+    class=""
+  >
+    <div
+      class="avatar"
+    >
+      <img
+        src="avatar.svg"
+        width="60"
+      />
+    </div>
+    <div
+      class="mb-3"
+    >
+      <label
+        class="form-label"
+        for="formBasicEmail"
+      >
+        Email address
+      </label>
+      <input
+        class="form-control"
+        id="formBasicEmail"
+        name="email"
+        placeholder="Enter email"
+        type="email"
+      />
+      <small
+        class="text-muted form-text"
+      >
+        We'll never share your email with anyone else.
+      </small>
+    </div>
+    <div
+      class="mb-3"
+    >
+      <label
+        class="form-label"
+        for="formBasicEmail"
+      >
+        Username
+      </label>
+      <input
+        class="form-control"
+        id="formBasicEmail"
+        name="username"
+        placeholder="Enter Username"
+        type="text"
+      />
+    </div>
+    <div
+      class="mb-3"
+    >
+      <label
+        class="form-label"
+        for="formBasicEmail"
+      >
+        Branch
+      </label>
+      <input
+        class="form-control"
+        id="formBasicEmail"
+        name="branch"
+        placeholder="Enter Branch"
+        type="text"
+      />
+    </div>
+    <div
+      class="mb-3"
+    >
+      <label
+        class="form-label"
+        for="formBasicEmail"
+      >
+        Interests
+      </label>
+      <input
+        class="form-control"
+        id="formBasicEmail"
+        name="interests"
+        placeholder="Enter Interests"
+        type="text"
+      />
+      <small
+        class="text-muted form-text"
+      >
+        What would you like to read?.
+      </small>
+    </div>
+    <div
+      class="mb-3"
+    >
+      <label
+        class="form-label"
+        for="formBasicPassword"
+      >
+        Password
+      </label>
+      <input
+        class="form-control"
+        id="formBasicPassword"
+        name="password"
+        placeholder="Password"
+        type="password"
+      />
+    </div>
+    <div
+      class="container-login100-form-btn register-but"
+    >
+      <a
+        href="/"
+        name="dashboard"
+        style="text-decoration: none; color: white; font-family: sans-serif;"
+      >
+        <button
+          class="login100-form-btn"
+          type="submit"
+        >
+          Register
+        </button>
+      </a>
+    </div>
+    <div
+      class="text-center p-t-46 p-b-20"
+    >
+      <span
+        class="txt2"
+      >
+        Already have an account?
+      </span>
+    </div>
+    <div
+      class="container-login100-form-btn register-but"
+    >
+      <a
+        href="/login"
+        name="login"
+        style="text-decoration: none; color: white; font-family: sans-serif;"
+      >
+        <button
+          class="login100-form-btn"
+        >
+          Login
+        </button>
+      </a>
+    </div>
+  </form>
+</DocumentFragment>
+`;

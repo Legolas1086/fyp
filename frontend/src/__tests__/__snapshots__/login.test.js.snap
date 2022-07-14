@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot testing renders approve the request compnenet 1`] = `
+<DocumentFragment>
+  <form
+    class=""
+  >
+    <div
+      class="avatar"
+    >
+      <img
+        src="avatar.svg"
+        width="60"
+      />
+    </div>
+    <div
+      class="mb-3"
+    >
+      <label
+        class="form-label"
+        for="formBasicEmail"
+      >
+        Email address
+      </label>
+      <input
+        class="form-control"
+        id="formBasicEmail"
+        placeholder="Enter email"
+        type="email"
+      />
+      <small
+        class="text-muted form-text"
+      >
+        We'll never share your email with anyone else.
+      </small>
+    </div>
+    <div
+      class="mb-3"
+    >
+      <label
+        class="form-label"
+        for="formBasicPassword"
+      >
+        Password
+      </label>
+      <input
+        class="form-control"
+        id="formBasicPassword"
+        placeholder="Password"
+        type="password"
+      />
+    </div>
+    <div
+      class="container-login100-form-btn register-but"
+    >
+      <a
+        href="/"
+        name="dashboard"
+        style="text-decoration: none; color: white; font-family: sans-serif;"
+      >
+        <button
+          class="login100-form-btn"
+          type="submit"
+        >
+          Login
+        </button>
+      </a>
+    </div>
+    <div
+      class="text-center p-t-46 p-b-20"
+    >
+      <span
+        class="txt2"
+      >
+        Haven't registered with us ?
+      </span>
+    </div>
+    <div
+      class="container-login100-form-btn register-but"
+    >
+      <a
+        href="/register"
+        style="text-decoration: none; color: white; font-family: sans-serif;"
+      >
+        <button
+          class="login100-form-btn"
+        >
+          Register
+        </button>
+      </a>
+    </div>
+  </form>
+</DocumentFragment>
+`;
