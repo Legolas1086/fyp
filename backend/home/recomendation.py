@@ -133,8 +133,9 @@ def getSimilarBooks(book,bookid,userid):
     book_parameters.append(cleaner(book.publisher))
     book_parameters.append(cleaner(book.category))
 
-
-    books = Books.objects.filter(~Q(sellerid=userid))
+    print(book_parameters)
+    lookup = ~Q(sellerid=userid) & ~Q(isbn=bookid)
+    books = Books.objects.filter(lookup)
     
 
     recommend_list = []
@@ -144,15 +145,24 @@ def getSimilarBooks(book,bookid,userid):
     cosine_similarities = []
 
     for feature in features:
+        combined = book_parameters
+        for i in feature:
+            combined.append(i)
+
         tf = TfidfVectorizer(analyzer='word', min_df = 1)
-        feature_matrix = tf.fit_transform(feature)
+        matrix = tf.fit(combined)
         book_matrix = tf.transform(book_parameters)
+        feature_matrix = tf.transform(feature)
+        
+        
+        print(book_matrix)
+        print("feature:",feature_matrix)
         book_similarity = cosine_similarity(feature_matrix,book_matrix)
         book_similarity = max(book_similarity[:,0])
         
         cosine_similarities.append(book_similarity)
     
     print(cosine_similarities)
-    sorted_books = [x for _,x in sorted(zip(cosine_similarities,books),reverse=True, key = lambda x: x[0]) if _>0.25]
+    sorted_books = [x for _,x in sorted(zip(cosine_similarities,books),reverse=True, key = lambda x: x[0]) if _>0.1]
     sorted_books = [x for x in sorted_books if x.isbn!=bookid]
     return sorted_books

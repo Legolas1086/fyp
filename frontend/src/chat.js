@@ -59,7 +59,7 @@ class Chat extends React.Component{
         event.preventDefault();
         let data = new FormData();
         data.append('sender',this.state.islogged)
-        data.append('receiver',2)
+        data.append('receiver',this.state.senderid)
         data.append('message',this.state.inputMessage)
 
         let url = "http://127.0.0.1:8000/postchat/";
