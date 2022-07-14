@@ -16,12 +16,14 @@ import {
   MDBBtn
 } from 'mdb-react-ui-kit';
 import {Form,Button} from 'react-bootstrap';
+import { faListSquares } from "@fortawesome/free-solid-svg-icons";
 
 function Login (){
     const navigate = useNavigate();
     const context = useContext(AuthContext);
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
+    const [errorMessgae,setErrorMessage] = useState(false)
     
     function onEmailChange(event){
         setEmail(event.target.value)
@@ -36,6 +38,7 @@ function Login (){
     function handleSubmit(event){    
 
         event.preventDefault();
+        let auth = false;
         const {id,login,logout} = context
         console.log(password)
         let url = "http://127.0.0.1:8000/authenticate"
@@ -43,12 +46,26 @@ function Login (){
         .then(res=>res.data)
         .then(res=>{
             login(res)
+            setErrorMessage(false)
+            console.log(res)
             localStorage.setItem('id',res)
+            axios.get("http://127.0.0.1:8000/keys/?id=".concat(res))
+            .then(res=>res.data)
+            .then(res=>console.log(res))
+            window.setTimeout(() => {
+                navigate("/")
+            }, 3000)
         })
-       
-        window.setTimeout(() => {
-            navigate("/")
-        }, 3000)
+        .catch(error=>{
+            setErrorMessage(true)
+        })
+
+
+        
+        
+
+        
+        
     }
 
     
@@ -59,6 +76,9 @@ function Login (){
              <div className="avatar">
                     <img width="60" src={avatar}/>
              </div>
+             {errorMessgae?<div>
+                <h5 style={{color:"red"}}>Can't find user. Please ensure that the email and password are correct.</h5>
+             </div>:<div></div>}
   <Form.Group className="mb-3" controlId="formBasicEmail">
     <Form.Label>Email address</Form.Label>
     <Form.Control type="email" placeholder="Enter email" onChange={onEmailChange}/>
@@ -71,6 +91,7 @@ function Login (){
     <Form.Label>Password</Form.Label>
     <Form.Control type="password" placeholder="Password" onChange={onPasswordChange} />
   </Form.Group>
+                    
                     <div className="container-login100-form-btn register-but">
                         <Link to="/" style={{textDecoration:'none',color:"white",fontFamily:"sans-serif"}} name = "dashboard">
                         <button type="submit" className="login100-form-btn" onClick={handleSubmit}>

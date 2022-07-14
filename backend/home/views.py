@@ -1,4 +1,5 @@
 from audioop import reverse
+import profile
 from re import L
 from django.dispatch import receiver
 from django.shortcuts import render
@@ -6,15 +7,16 @@ from django.http import HttpResponse,JsonResponse
 from django.forms.models import model_to_dict
 from sqlalchemy import false, null, true
 from yaml import serialize
-from .models import Books, Users, chatHistory
+from .models import Books, Users, chatHistory,Keys
 from rest_framework import serializers
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
-from .serializer import UserSerializer,BooksSerializer, chatHistorySerializer,getUsersChatSerializer
+from .serializer import UserSerializer,BooksSerializer, chatHistorySerializer,getUsersChatSerializer, keysSerializer
 from rest_framework import status
 from django.db.models import Q
-from .recomendation import sendMail,recommend
+from .recomendation import sendMail,recommend,getSimilarBooks
+from .rsa import generateKeys
 from django.core import serializers as core_serializers
 
 class RegisterUser(APIView):
@@ -25,6 +27,10 @@ class RegisterUser(APIView):
         posts_serializer = UserSerializer(data=request.data)
         if posts_serializer.is_valid():
             posts_serializer.save()
+            print(request.data['username'])
+            user = Users.objects.filter(username=request.data['username'])
+            user = user[0]
+            generateKeys(user.id)
             return Response(posts_serializer.data, status=status.HTTP_201_CREATED)
         else:
             print('error', posts_serializer.errors)
@@ -52,7 +58,7 @@ class FetchUser(APIView):
 class FetchBooks(APIView):
     def get(self,request):
         userid = request.query_params['id']
-        books = Books.objects.all()
+        books = Books.objects.filter(~Q(sellerid=userid))
         sorted_books = recommend(books,userid)
         serialize = BooksSerializer(sorted_books,many=true)
         return Response(serialize.data)
@@ -64,13 +70,6 @@ class FetchBookDetails(APIView):
         books = Books.objects.filter(isbn=input_isbn)
         serialize = BooksSerializer(books,many=true)
         return Response(serialize.data)
-
-class FetchSimilarBook(APIView):
-    def get(self,request):
-        books= Books.objects.all()
-        serialize = BooksSerializer(books,many=true)
-        return Response(serialize.data)
-    pass
 
 class PostBook(APIView):
     parser_classes = (MultiPartParser, FormParser)
@@ -97,7 +96,8 @@ class displayChat(APIView):
     def get(self,request):
         user1 = request.query_params['user1']
         user2 = request.query_params['user2']
-        lookups = (Q(sender=user1) and Q(receiver=user2)) | (Q(receiver=user1) and Q(sender=user2))
+        print(user1,user2)
+        lookups = (Q(sender=user1) & Q(receiver=user2)) | (Q(sender=user2) & Q(receiver=user1))
         chats = chatHistory.objects.filter(lookups).order_by('timestamp')
         serialize = chatHistorySerializer(chats,many = true)
         return Response(serialize.data)
@@ -123,7 +123,7 @@ class SearchBook(APIView):
         object = Users.objects.get(id=userid)
         object.searchHistory = object.searchHistory+" "+search_query
         object.save()
-        filter = Q(bookname__icontains=search_query) | Q(author__icontains=search_query) | Q(category__icontains=search_query) | Q(description__icontains=search_query) | Q(category__icontains=search_query)
+        filter = Q(bookname__icontains=search_query) | Q(author__icontains=search_query) 
         books = Books.objects.filter(filter)
         serialize = BooksSerializer(books,many=true)
         return Response(serialize.data)
@@ -160,4 +160,78 @@ class getUsersChat(APIView):
         res['senders']=senders
         serialize = getUsersChatSerializer(senders,many=true)
         return Response(serialize.data)
+
+
+
+class Profile(APIView):
+    def get(self,request):
+        profile = Users.objects.filter(id=request.query_params['id'])
+        print(profile)
+        serialize = UserSerializer(profile,many=true)
+        return Response(serialize.data)
+
+
+class similarBooks(APIView):
+    def get(self,request):
+        bookid = request.query_params['id']
+        book = Books.objects.filter(isbn=bookid)
+        similarBooks = getSimilarBooks(book[0],bookid,request.query_params['userid'])
+        print(similarBooks)
+        serialize = BooksSerializer(similarBooks,many=true)
+        return Response(serialize.data)
+
+class Profile(APIView):
+    def get(self,request):
+        profile = Users.objects.filter(id=request.query_params['id'])
+        print(profile)
+        serialize = UserSerializer(profile,many=true)
+        return Response(serialize.data)
+
+class Wishlist(APIView):
+    def patch(self,request):
+        user = Users.objects.get(id=request.data['id'])
+        print(user)
+        user.wishlist = user.wishlist+" "+request.data['bookid']
+        user.save()
+        serialize = UserSerializer(user)
+        return Response(serialize.data)
     
+    
+        
+class getWishlist(APIView):
+    def get(self,request):
+        user = Users.objects.get(id=request.query_params['id'])
+        wishlist = user.wishlist.split(" ")
+        wishlist.pop(0)
+        print(wishlist)
+        wishBooks = []
+        if len(wishlist)>0:
+            for i in wishlist:
+                wishBooks.append(Books.objects.get(isbn = i))
+        print(wishBooks)
+        serialize = BooksSerializer(wishBooks,many=true)
+        return Response(serialize.data)
+
+class getKeys(APIView):
+    def get(self,request):
+        object = Keys.objects.filter(userid=request.query_params['id'])
+        serializer = keysSerializer(object,many=true)
+        return Response(serializer.data)
+
+class getpublic(APIView):
+    def get(self,request):
+        object = Keys.objects.filter(userid=request.query_params['id'])
+        return Response(object[0].publicKey)
+
+class getprivate(APIView):
+    def get(self,request):
+        object = Keys.objects.filter(userid=request.query_params['id'])
+        return (Response(object[0].privateKey))
+
+class getUsername(APIView):
+    def get(self,request):
+        object = Users.objects.filter(id=request.query_params['id'])
+        return Response(object[0].username)
+
+        
+

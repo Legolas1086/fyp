@@ -7,38 +7,61 @@ import styles from "./css/details.css"
 import { Link } from "react-router-dom";
 import { FaComment } from 'react-icons/fa';
 import {Form ,FormControl,Button } from 'react-bootstrap';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 
 const Details=(props)=>{
+    const navigate = useNavigate();
     const [state,setState] = useState("1")
     const [data,setData] = useState({})
+    const [seller,setSeller] = useState("")
 
     const [similarbook,setSimilarBook]=useState([{}])
 
     
     const location = useLocation()
     
+
     useEffect(()=>{
         setState(location.state.idDetails)
         console.log(state)
-        fetch("http://127.0.0.1:8000/bookdetails/?id=".concat(state))
-
+        fetch("http://127.0.0.1:8000/bookdetails/?id=".concat(location.state.idDetails))
         .then(res=>(res.json()))
-        .then(res=>setData(res[0]))
-    },[location,state,data]);
-
-        useEffect(()=>{
-        fetch("http://127.0.0.1:8000/similarbooks/")
-        .then(res=>(res.json()))
+        .then(res=>{
+            setData(res[0]);
+            axios.get("http://127.0.0.1:8000/getusername/?id=".concat(res[0].sellerid))
+            .then(res=>res.data)
+            .then(res=>localStorage.setItem('sellername',res));
+        }
+            
+            )
+        axios.get("http://127.0.0.1:8000/similarbooks/?id=".concat(location.state.idDetails),{params:{'userid':localStorage.getItem('id')}})
+        .then(res=>(res.data))
         .then(res=>setSimilarBook(res))
-    },[]);
+        
+   
+    },[location,state]);    
 
-similarbook.map(siri=>console.log(siri))
+
+   function addLibrary(){
+    axios.patch("http://127.0.0.1:8000/addwish/",{'id':localStorage.getItem('id'),'bookid':location.state.idDetails},{
+            headers: {
+                'content-type': 'application/json',
+            }
+          }).then(res => {
+            console.log(res);
+          })
+          .catch(err => console.log(err))
+      .catch(err => console.log(err))
+   }
 
 
-    function handleClick(){
+    function handleClick(event){
+       
         localStorage.setItem('senderid',data.sellerid)
+
     }
     
         return(
@@ -58,7 +81,12 @@ similarbook.map(siri=>console.log(siri))
                       <br/>
                       <br/>
                       <h4>Rs.{data.cost}</h4>
-                      <Link to="/chat" state={{senderid:data.sellerid}} onClick={handleClick()}><Button variant="primary" type="submit">contact seller&nbsp;<FaComment /></Button></Link>
+                      
+            
+                      <Link to="/chat" state={{senderid:data.sellerid,sellername:seller}} onClick={handleClick}><Button variant="primary" type="submit">contact seller&nbsp;<FaComment /></Button></Link>
+                      <br/>
+                      <Button variant="primary" onClick={addLibrary}>Add to Library</Button>
+                      
                   </div>
               </div>
               </div>

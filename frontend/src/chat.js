@@ -33,10 +33,12 @@ class Chat extends React.Component{
     }
     
     componentWillMount(){
+
         const loggedid = localStorage.getItem('id')
         this.setState({islogged:loggedid})
-        if(localStorage.getItem('senderid')){
-            this.setState({senderid:localStorage.getItem('senderid')})
+        if(localStorage.getItem('senderid')!=0){
+            console.log(localStorage.getItem('sendername'))
+            this.setState({senderid:localStorage.getItem('senderid'),sender:localStorage.getItem('sellername')})
         }
         
         console.log(this.state.islogged)
@@ -45,7 +47,7 @@ class Chat extends React.Component{
         setInterval(() => {
             this.fetchSenders();
             this.fetchMessages(); 
-        }, 1000);
+        }, 3000);
         localStorage.setItem('senderid',0)   
     }
 
@@ -75,6 +77,10 @@ class Chat extends React.Component{
     handleSenderClick = (id,username) =>{
         this.setState({senderid:id,sender:username})
         console.log(id)
+    }
+
+    componentWillUnmount(){
+        localStorage.setItem('senderid',0)
     }
 
    
