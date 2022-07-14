@@ -10,7 +10,7 @@
     width:100%;
     justify-content: center;
     background-color: lavender;
-    padding-bottom: 3rem;   
+/*    padding-bottom: 3rem; */  
 }
 
 
@@ -23,6 +23,8 @@
 
 .details-box{
    display: flex;
+   padding-left: 2rem;
+   padding-right: 2rem;
 }
 
 .dash-body-details{

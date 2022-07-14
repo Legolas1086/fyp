@@ -1,0 +1,33 @@
+.container-profile{
+display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.details-body-top-pro{
+    padding-top: 7rem;
+    /* display: flex; */
+    /* flex-direction: row; */
+    width: 100%;
+    justify-content: center;
+    background-color: lavender;
+    padding-bottom: 3rem;
+    padding-left: 2rem;
+    padding-right: 2rem; 
+}
+.profile{
+	min-height: 60vh;
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    align-content: center;
+}
+.ava{
+	height: 30px;
+	width: 30px;
+}
+.wishlist-card{
+	display: flex;
+}

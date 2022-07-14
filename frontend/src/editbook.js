@@ -63,7 +63,7 @@ const EditBook=(props)=>{
         return(
             <div className="details-outer">
                 <Nav/>
-              <div className="details-body-top" style={{minHeight:"89vh"}}>
+              <div className="details-body-top-edit" style={{minHeight:"89vh"}}>
                   <div className="details-img">
                     <img src = {"http://127.0.0.1:8000".concat(data.image)}></img>
                   </div>

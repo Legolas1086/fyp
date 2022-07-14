@@ -65,33 +65,31 @@ const Details=(props)=>{
     }
     
         return(
-            <>
             <div className="details-outer">
                 <Nav/>
-              <div className="details-body-top" >
+              <div className="details-body-top" style={{minHeight:"89vh"}}>
               <div className="details-box">
                   <div className="details-img">
                     <img src = {"http://127.0.0.1:8000".concat(data.image)} style={{width:"240px",height:"300px"}}></img>
                   </div>
                   <div className="book-details">
                       <h1 style={{color:"#000"}}>{data.bookname}</h1>
-                      <h5>{data.author}</h5>
-                      <p>{data.description}</p>
+                      <h5>Author: {data.author}</h5>
+                      <p style={{paddingBottom:"0rem"}}>Genre: {data.category}</p>
+                      <p style={{paddingBottom:"0rem"}}>Description:{data.description}</p>
                       <br/>
                       <br/>
                       <br/>
                       <h4>Rs.{data.cost}</h4>
-                      
-            
+                      <span>
                       <Link to="/chat" state={{senderid:data.sellerid,sellername:seller}} onClick={handleClick}><Button variant="primary" type="submit">contact seller&nbsp;<FaComment /></Button></Link>
-                      <br/>
+                      &nbsp;&nbsp;
                       <Button variant="primary" onClick={addLibrary}>Add to Library</Button>
-                      
+                      </span>
                   </div>
               </div>
               </div>
-              <h1 style={{color:"#000", paddingLeft:"3rem", marginTop:"2rem"}}>Similar books...</h1>
-            </div>
+              {similarbook.length >0 && <h1 style={{color:"#000", paddingLeft:"3rem", marginTop:"2rem"}} >Similar books...</h1> }
                 <div className="dash-body-details">   
                    {similarbook.slice(0,5).map((book)=>
                 
@@ -109,7 +107,7 @@ const Details=(props)=>{
                     )
                 }
                 </div>
-                </>
+                </div>
         )
     
 }

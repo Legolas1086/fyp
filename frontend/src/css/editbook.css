@@ -49,3 +49,14 @@ margin-top: 5rem;
 width: 10rem;
 }
 
+.details-body-top-edit{
+    padding-top: 10rem;
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    justify-content: center;
+    background-color: lavender;
+    padding-bottom: 3rem;
+    padding-left: 2rem;
+    padding-right: 2rem;   
+}
