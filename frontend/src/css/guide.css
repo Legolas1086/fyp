@@ -1,0 +1,20 @@
+.how-image{
+	width: 60vh;
+	height: 40vh;
+}
+
+.guide-left{
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	font-size: 40px;
+}
+.guide-body-top{
+	padding-top: 10rem;
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    justify-content: space-evenly;
+    background-color: lavender;
+/*    padding-bottom: 3rem; */  
+}

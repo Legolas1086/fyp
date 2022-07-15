@@ -13,7 +13,7 @@ export default function Footer() {
 
             <div className='social-container'>
                 <div className='social-container-row'>
-                    <a href="https://www.instagram.com/yuktha_naveen"
+                    <a href="https://www.instagram.com/sumukh_6"
                         className="instagram social">
                         <FontAwesomeIcon icon={faInstagram} size="2x" />
                     </a>
