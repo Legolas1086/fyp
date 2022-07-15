@@ -17,6 +17,7 @@ class Dashboard extends React.Component{
         data:[],
         islogged:0,
         input:"",
+        empty:false
     }
     
 
@@ -26,9 +27,13 @@ class Dashboard extends React.Component{
         console.log(url);
             axios.get(url,{params:data})
             .then((response) => response.data)
-            .then((res) => {console.log(res[0].bookname);
+            .then((res) => {console.log(res);
                     return res})
-            .then((res) => {this.setState({data:res})})
+            .then((res) => {
+                if (res.length==0){
+                    this.setState({empty:true})
+                }
+                this.setState({data:res})})
             .then(this.setState({isloading:false}))
         
     }
@@ -43,7 +48,6 @@ class Dashboard extends React.Component{
     }
 
     handleChange=(event)=>{
-        console.log(this.context)
         this.setState({input:event.target.value})
     }
 
@@ -66,11 +70,16 @@ class Dashboard extends React.Component{
             
             <div className="dashboard-outer">
                 <Nav/>
+                
                 <div style={{minHeight:"89vh" , backgroundColor:"lavender"}} >
                 <form className="search-bar" onSubmit={this.handleSubmit}>
                 <Form.Control type="text" placeholder="Search for books" onChange={this.handleChange} className="search-bar-input"/>
                     <Button variant="primary" type="submit">Search</Button>
                 </form>
+                {this.state.empty?
+                <div>
+                    <h2 style={{color:"red",marginLeft:"20rem",marginTop:"5rem"}}>The book you searched is not availabel at the moment. We'll notify you once it is availble</h2>
+                </div>:
                       <div className="dash-body">
 
                    {this.state.data.map((book)=>
@@ -90,7 +99,9 @@ class Dashboard extends React.Component{
                 }
                 
                 </div>
+    }
             </div>
+    
             
             </div>
 

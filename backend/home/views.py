@@ -135,7 +135,7 @@ class SearchBook(APIView):
         object = Users.objects.get(id=userid)
         object.searchHistory = object.searchHistory+" "+search_query
         object.save()
-        filter = Q(bookname__icontains=search_query)
+        filter = Q(bookname__icontains=search_query) & ~Q(sellerid=userid)
         books = Books.objects.filter(filter)
         serialize = BooksSerializer(books,many=true)
         return Response(serialize.data)
