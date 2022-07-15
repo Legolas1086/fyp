@@ -82,7 +82,7 @@ class PostBook(APIView):
         posts_serializer = BooksSerializer(data=request.data)
         if posts_serializer.is_valid():
             posts_serializer.save()
-            sendMail(posts_serializer.data)
+            sendMail(request.data)
             return Response(posts_serializer.data, status=status.HTTP_201_CREATED)
         else:
             print('error', posts_serializer.errors)

@@ -52,7 +52,9 @@ class MyProfile extends React.Component{
                     
                     <div className="wishlist">
                     <h1 style={{textAlign:"center"}}>Wishlist</h1>
+
                     <div className="wishlist-card">
+                        
                         {this.state.wishlist.map((book)=>
                    <div className="content-card">
                    <div style={{padding:"1 1.5rem", color:"#000"}}>

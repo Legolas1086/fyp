@@ -13,6 +13,7 @@ import EditBook from './editbook';
 import Chat from './chat';
 import Footer from './footer';
 import MyProfile from './myprofile';
+import Guide from './guide.js';
 
 class App extends React.Component {
   state={
@@ -43,6 +44,8 @@ class App extends React.Component {
               <Route exact path="/editbook" element={<EditBook props={{loggedin:this.state.loggedin}}/>}/>
               <Route exact path="/chat" element={<Chat props={{loggedin:this.state.loggedin}}/>}/>
               <Route exact path="/myprofile" element={<MyProfile/>}/>
+              <Route exact path="/guide" element={<Guide/>}/>
+              
               
             </Routes>
             

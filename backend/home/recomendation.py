@@ -114,11 +114,35 @@ def recommend(books,id):
 
 
 def sendMail(book):
-    users = Users.objects.all()
+    users = Users.objects.filter(~Q(id=book['sellerid']))
+
+    book_parameters = []
+    book_parameters.append(cleaner(book['description']))
+    book_parameters.append(cleaner(book['bookname']))
+    book_parameters.append(cleaner(book['author']))
+    book_parameters.append(cleaner(book['publisher']))
+    book_parameters.append(cleaner(book['category']))
+    
+    print(book_parameters)
+    
     emails = []
     for user in users:
-        if book['bookname'] in user.interests or book['bookname'] in user.searchHistory:
-            emails.append(user.email)
+        tf = TfidfVectorizer(analyzer='word', min_df = 1)
+        user_interests = cleaner(user.interests)
+        print(user_interests)
+        searchHistory  = cleaner(user.searchHistory)
+        user_interests = user_interests.split()
+        searchHistory = searchHistory.split()
+        for i in user_interests:
+            for j in book_parameters:
+                if i in j:
+                    emails.append(user.email)
+           
+        for i in searchHistory:
+            for j in book_parameters:
+                if i in j:
+                    emails.append(user.email)
+
     print(emails)
 
     send_mail('Book you were looking for',book['bookname']+'is up for sale, buy it before somebody else does, Regards Pusthak Bandaar',settings.EMAIL_HOST_USER,emails)
