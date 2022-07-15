@@ -52,5 +52,5 @@ class chatHistory(models.Model):
     sender = models.ForeignKey(Users,related_name='chatSender',on_delete=models.CASCADE)
     receiver = models.ForeignKey(Users,related_name='chatReceiver',on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=true)
-    message = models.BLOBField(null=false)
-    messageReceiver = models.BinaryField(null=false)
+    message = models.CharField(null=false,max_length=10000000)
+    messageReceiver = models.CharField(null=false,max_length=10000000)

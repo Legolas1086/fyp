@@ -103,13 +103,7 @@ class displayChat(APIView):
         lookups = (Q(sender=user1) & Q(receiver=user2)) | (Q(sender=user2) & Q(receiver=user1))
 
         chats = chatHistory.objects.filter(lookups).order_by('timestamp')
-        for i in chats:
-            message=""
-            if str(i.sender.id)==user1:
-                message = decrypt(i.message,user1)
-            elif str(i.receiver.id) == user1:
-                message = decrypt(i.messageReceiver,user1)
-            print(message)
+        
         serialize = chatHistorySerializer(chats,many = true)
         return Response(serialize.data)
 
@@ -122,10 +116,8 @@ class postChat(APIView):
         data = request.data
         postData['sender'] = data['sender']
         postData['receiver'] = data['receiver']
-        postData['message'] = encrypt(data['message'],data['sender'])
-        print("\n",postData['message'])
-        postData['messageReceiver'] = encrypt(data['message'],data['receiver'])
-        print("\n",postData['messageReceiver'])
+        postData['message'] = data['message']
+        postData['messageReceiver'] = data['message']
         
         chats_serializer = chatHistorySerializer(data=postData)
         if chats_serializer.is_valid():
