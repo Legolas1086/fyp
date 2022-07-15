@@ -3,8 +3,12 @@ import Nav from "./nav";
 import styles from "./css/chat.css"
 import axios from "axios";
 import { Navigate, useLocation } from "react-router-dom";
+import encodeUtf8 from 'encode-utf8'
+
+
 
 class Chat extends React.Component{
+    
     state={
         islogged:"",
         senderid:0,
@@ -12,6 +16,7 @@ class Chat extends React.Component{
         senders:[],
         messages:[],
         inputMessage:"",
+        
     }
 
     fetchMessages(){
@@ -33,7 +38,7 @@ class Chat extends React.Component{
     }
     
     componentWillMount(){
-
+        
         const loggedid = localStorage.getItem('id')
         this.setState({islogged:loggedid})
         if(localStorage.getItem('senderid')!=0){
@@ -50,6 +55,8 @@ class Chat extends React.Component{
         }, 3000);
         localStorage.setItem('senderid',0)   
     }
+
+    
 
     handleChange=(event)=>{
         this.setState({inputMessage:event.target.value})
@@ -82,8 +89,6 @@ class Chat extends React.Component{
     componentWillUnmount(){
         localStorage.setItem('senderid',0)
     }
-
-   
     
 
     render(){
@@ -124,7 +129,7 @@ class Chat extends React.Component{
                                 <div className="chat-message-cont" style={{justifyContent:chat.sender==this.state.islogged?"end":"start"}}>
                                 <div className="chat-message" className={chat.sender==this.state.islogged?"right-chat":"left-chat"}>
                                     <p className="chat-message-timestamp">{chat.timestamp.slice(0,19)}</p>
-                                    <p className="chat-message-message">{chat.message}</p>
+                                    <p className="chat-message-message">{chat.sender==this.state.islogged?chat.message:chat.messageReceiver}</p>
                                            
                                 </div>
                                 </div>

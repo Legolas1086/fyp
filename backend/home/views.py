@@ -1,4 +1,5 @@
 from audioop import reverse
+import encodings
 import profile
 from re import L
 from django.dispatch import receiver
@@ -16,8 +17,10 @@ from .serializer import UserSerializer,BooksSerializer, chatHistorySerializer,ge
 from rest_framework import status
 from django.db.models import Q
 from .recomendation import sendMail,recommend,getSimilarBooks
-from .rsa import generateKeys
+from .rsa import decrypt, encrypt, generateKeys
 from django.core import serializers as core_serializers
+import pem
+
 
 class RegisterUser(APIView):
     parser_classes = (MultiPartParser, FormParser)
@@ -98,7 +101,15 @@ class displayChat(APIView):
         user2 = request.query_params['user2']
         print(user1,user2)
         lookups = (Q(sender=user1) & Q(receiver=user2)) | (Q(sender=user2) & Q(receiver=user1))
+
         chats = chatHistory.objects.filter(lookups).order_by('timestamp')
+        for i in chats:
+            message=""
+            if str(i.sender.id)==user1:
+                message = decrypt(i.message,user1)
+            elif str(i.receiver.id) == user1:
+                message = decrypt(i.messageReceiver,user1)
+            print(message)
         serialize = chatHistorySerializer(chats,many = true)
         return Response(serialize.data)
 
@@ -107,7 +118,16 @@ class postChat(APIView):
 
 
     def post(self, request, *args, **kwargs):
-        chats_serializer = chatHistorySerializer(data=request.data)
+        postData={}
+        data = request.data
+        postData['sender'] = data['sender']
+        postData['receiver'] = data['receiver']
+        postData['message'] = encrypt(data['message'],data['sender'])
+        print("\n",postData['message'])
+        postData['messageReceiver'] = encrypt(data['message'],data['receiver'])
+        print("\n",postData['messageReceiver'])
+        
+        chats_serializer = chatHistorySerializer(data=postData)
         if chats_serializer.is_valid():
             chats_serializer.save()
             return Response(chats_serializer.data, status=status.HTTP_201_CREATED)
@@ -226,7 +246,9 @@ class getpublic(APIView):
 class getprivate(APIView):
     def get(self,request):
         object = Keys.objects.filter(userid=request.query_params['id'])
-        return (Response(object[0].privateKey))
+        f = open('./images/privateKey'+str(object[0].userid.id)+'.pem')
+        key = f.read()
+        return Response(key)
 
 class getUsername(APIView):
     def get(self,request):
