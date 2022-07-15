@@ -1,18 +1,22 @@
 import React from "react";
 import { ReactDOM } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import avatar from "./images/avatar.svg";
 import axios from 'axios';
 import {Form,Button} from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
+import { Redirect } from "react-router";
 
 class Register extends React.Component{
-    
+   
     state={
             username:"",
             email:"",
             password:"",
             branch:"",
             interests:"",
+            success:false,
+            errMessage:"hi"
     }
 
     onChange=(event)=>{
@@ -20,6 +24,7 @@ class Register extends React.Component{
     }
     
     handleSubmit = (event)=>{  
+        event.preventDefault()
         let data = new FormData()
         data.append('username',this.state.username)
         data.append('email',this.state.email)
@@ -36,13 +41,24 @@ class Register extends React.Component{
             }
           })
               .then(res => {
+                this.setState({success:true})
                 console.log(res.data);
               })
-              .catch(err => console.log(err))
+              .catch(err => {
+                this.setState({errMessage:err.request.response})
+                console.log(err.request.response)
+                console.log(this.state.errMessage)
+              })
+                
         
     }
 
     render(){
+      if(this.state.success){
+        return(
+          <Navigate to="/login"/>
+        )
+      }
      return(
              // <form className="login100-form validate-form" onSubmit={this.handleSubmit}>      
              //        <div className="avatar">
@@ -107,6 +123,14 @@ class Register extends React.Component{
              <div className="avatar">
                     <img width="60" src={avatar}/>
              </div>
+             
+             {this.state.errMessage!="hi"?
+             <div>
+              <h4 style={{color:"red"}}>{this.state.errMessage}</h4>
+             </div>:
+             <div></div>
+             }
+            
   <Form.Group className="mb-3" controlId="formBasicEmail">
     <Form.Label>Email address</Form.Label>
     <Form.Control type="email" placeholder="Enter email" onChange={this.onChange} name="email"/>
