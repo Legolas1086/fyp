@@ -19,11 +19,11 @@ class MyProfile extends React.Component{
         this.setState({loggedin:localStorage.getItem('id')})
         axios.get("http://127.0.0.1:8000/getwish/?id=".concat(localStorage.getItem('id')))
         .then(res=>res.data)
-        .then(res=>wish=res)
+        .then(res=>this.setState({wishlist:res}))
         
         axios.get("http://127.0.0.1:8000/profile/?id=".concat(localStorage.getItem('id')))
         .then(res=>res.data)
-        .then(res=>this.setState({profile:res[0],wishlist:wish}))
+        .then(res=>this.setState({profile:res[0]}))
         
     }
 
@@ -50,9 +50,10 @@ class MyProfile extends React.Component{
                         
                     </div>
                     
+                    {this.state.wishlist.length>0?
                     <div className="wishlist">
                     <h1 style={{textAlign:"center"}}>Wishlist</h1>
-
+                      
                     <div className="wishlist-card">
                         
                         {this.state.wishlist.map((book)=>
@@ -70,6 +71,9 @@ class MyProfile extends React.Component{
                         </div>
                         
                     </div>
+                    :
+                    <div></div>
+                        }
                     </div>
                 </div>
             </div>
