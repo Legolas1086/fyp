@@ -50,7 +50,7 @@ class App extends React.Component {
             </Routes>
             
           </div>
-          {window.location.pathname != '/login' && window.location.pathname!='/register'?<Footer/>:<div>dummy</div>}
+          <Footer/>
         </div>
     </Router>
     

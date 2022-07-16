@@ -158,7 +158,7 @@ def getSimilarBooks(book,bookid,userid):
     book_parameters.append(cleaner(book.category))
 
     print(book_parameters)
-    lookup = ~Q(sellerid=userid) & ~Q(isbn=bookid)
+    lookup = ~Q(sellerid=userid) & ~Q(id=bookid)
     books = Books.objects.filter(lookup)
     
 
