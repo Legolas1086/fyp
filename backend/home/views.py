@@ -33,7 +33,7 @@ class RegisterUser(APIView):
             print(request.data['username'])
             user = Users.objects.filter(username=request.data['username'])
             user = user[0]
-            generateKeys(user.id)
+            #generateKeys(user.id)
             return Response(posts_serializer.data, status=status.HTTP_201_CREATED)
         else:
             print('error', posts_serializer.errors)

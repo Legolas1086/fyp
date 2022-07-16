@@ -15,7 +15,7 @@ class Register extends React.Component{
             password:"",
             branch:"",
             interests:"",
-            success:false,
+            success:"no",
             errMessage:"hi"
     }
 
@@ -41,7 +41,7 @@ class Register extends React.Component{
             }
           })
               .then(res => {
-                this.setState({success:true})
+                this.setState({success:"yes"})
                 console.log(res.data);
               })
               .catch(err => {
@@ -54,9 +54,11 @@ class Register extends React.Component{
     }
 
     render(){
-      if(this.state.success){
+      if(this.state.success=="yes"){
+
+        console.log("registered")
         return(
-          <Navigate to="/login"/>
+          <Navigate to="/"/>
         )
       }
      return(
