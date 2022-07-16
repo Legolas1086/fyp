@@ -49,9 +49,8 @@ class Books(models.Model):
 
 
 class chatHistory(models.Model):
-    chatid = models.AutoField(primary_key=true,unique=true,default="1")
+    chatid = models.AutoField(primary_key=true,unique=true)
     sender = models.ForeignKey(Users,related_name='chatSender',on_delete=models.CASCADE)
     receiver = models.ForeignKey(Users,related_name='chatReceiver',on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=true)
     message = models.CharField(null=false,max_length=10000000)
-    messageReceiver = models.CharField(null=false,max_length=10000000)

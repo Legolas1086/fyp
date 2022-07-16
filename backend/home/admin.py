@@ -9,7 +9,7 @@ class BooksAdmin(admin.ModelAdmin):
     list_display = ['isbn','bookname','author','category','publisher','description','cost','image','sellerid']
 
 class chatHistoryAdmin(admin.ModelAdmin):
-    list_display = ['chatid','sender','receiver','timestamp','message','messageReceiver']
+    list_display = ['chatid','sender','receiver','timestamp','message']
 
 class keysAdmin(admin.ModelAdmin):
     list_display = ['id','userid','publicKey','privateKey']

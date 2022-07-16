@@ -129,7 +129,7 @@ class Chat extends React.Component{
                                 <div className="chat-message-cont" style={{justifyContent:chat.sender==this.state.islogged?"end":"start"}}>
                                 <div className="chat-message" className={chat.sender==this.state.islogged?"right-chat":"left-chat"}>
                                     <p className="chat-message-timestamp">{chat.timestamp.slice(0,19)}</p>
-                                    <p className="chat-message-message">{chat.sender==this.state.islogged?chat.message:chat.messageReceiver}</p>
+                                    <p className="chat-message-message">{chat.message}</p>
                                            
                                 </div>
                                 </div>

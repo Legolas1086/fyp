@@ -119,7 +119,7 @@ class postChat(APIView):
         postData['message'] = data['message']
         postData['messageReceiver'] = data['message']
         
-        chats_serializer = chatHistorySerializer(data=postData)
+        chats_serializer = chatHistorySerializer(data=request.data)
         if chats_serializer.is_valid():
             chats_serializer.save()
             return Response(chats_serializer.data, status=status.HTTP_201_CREATED)
