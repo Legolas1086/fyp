@@ -70,7 +70,7 @@ class FetchBookDetails(APIView):
     def get(self,request):
         print(request.query_params['id'])
         input_isbn=request.query_params['id']
-        books = Books.objects.filter(isbn=input_isbn)
+        books = Books.objects.filter(id=input_isbn)
         serialize = BooksSerializer(books,many=true)
         return Response(serialize.data)
 
@@ -143,7 +143,7 @@ class SearchBook(APIView):
 class EditBook(APIView):
     def patch(self,request):
         print(request.data)
-        object = Books.objects.get(isbn=request.data['isbn'])
+        object = Books.objects.get(id=request.data['id'])
         object.cost = request.data['newPrice']
         object.sold = request.data['sold']
         object.save()
@@ -186,7 +186,7 @@ class Profile(APIView):
 class similarBooks(APIView):
     def get(self,request):
         bookid = request.query_params['id']
-        book = Books.objects.filter(isbn=bookid)
+        book = Books.objects.filter(id=bookid)
         similarBooks = getSimilarBooks(book[0],bookid,request.query_params['userid'])
         print(similarBooks)
         serialize = BooksSerializer(similarBooks,many=true)
@@ -203,7 +203,7 @@ class Wishlist(APIView):
     def patch(self,request):
         user = Users.objects.get(id=request.data['id'])
         print(user)
-        user.wishlist = user.wishlist+" "+request.data['bookid']
+        user.wishlist = user.wishlist+" "+str(request.data['bookid'])
         user.save()
         serialize = UserSerializer(user)
         return Response(serialize.data)
@@ -219,7 +219,7 @@ class getWishlist(APIView):
         wishBooks = []
         if len(wishlist)>0:
             for i in wishlist:
-                wishBooks.append(Books.objects.get(isbn = i))
+                wishBooks.append(Books.objects.get(id = i))
         print(wishBooks)
         serialize = BooksSerializer(wishBooks,many=true)
         return Response(serialize.data)

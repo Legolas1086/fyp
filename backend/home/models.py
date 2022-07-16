@@ -35,7 +35,8 @@ class Keys(models.Model):
 
 
 class Books(models.Model):
-    isbn = models.CharField(primary_key=true,unique=true,max_length=13)
+    id = models.AutoField(primary_key=true,unique=true)
+    isbn = models.CharField(max_length=13)
     bookname = models.CharField(max_length=500,null=false,default="My book")
     author = models.CharField(max_length=500,default="Unknown")
     category = models.CharField(max_length=500,default="Unknown")
@@ -48,7 +49,7 @@ class Books(models.Model):
 
 
 class chatHistory(models.Model):
-    chatid = models.AutoField(primary_key=true,unique=true)
+    chatid = models.AutoField(primary_key=true,unique=true,default="1")
     sender = models.ForeignKey(Users,related_name='chatSender',on_delete=models.CASCADE)
     receiver = models.ForeignKey(Users,related_name='chatReceiver',on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=true)

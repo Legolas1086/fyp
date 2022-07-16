@@ -57,7 +57,7 @@ class MyBooks extends React.Component{
                    this.state.data.map((book)=>
                 
                    <div className="content-card">
-                        <Link to="/editbook" state={{editid:book.isbn}}>
+                        <Link to="/editbook" state={{editid:book.id}}>
                            <img id = {book.id} src={"http://127.0.0.1:8000".concat(book.image)} style={{width:"200px",height:"240px",paddingBottom:"0.5rem"}}></img>
                            <p style={{width:"200px",color:"000",fontWeight:"600"}}>{book.bookname}</p>
                     
